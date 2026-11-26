@@ -33,6 +33,9 @@ Hard rules:
 - 90-140 words. No em dashes. No buzzwords. No "I hope", "I came across", "passionate", "excited".
 - Use ONLY numbers that appear in MY PROOF ATOMS or THEIR FACTS. Never invent metrics, users, or claims.
 - Don't guess their scale ("thousands of drones", "millions of users") unless it is in THEIR FACTS.
+- Their eng challenges are YOUR GUESSES: phrase them as such ("if X is on your plate", "as X grows"),
+  never as facts about their system ("your pipeline needs...").
+- The offer must use the skill in the proof you cited, not an unrelated one.
 - Resume is attached; you may say "resume attached". Max 1 link (a case study URL if the atom has one).
 - Subject: 3-7 words, lowercase, specific to them, no jargon soup (e.g. "backend help at vegapay").
 Return JSON {"subject": str, "body": str}"""
@@ -101,8 +104,9 @@ def team_credit_problems(body):
 
 def critic(subject, body, facts):
     try:
-        out = llm(CRITIC.format(email=f"Subject: {subject}\n\n{body}", facts=facts, proofs=proof_text()),
-                  as_json=True, temperature=0)
+        email_text = f"Subject: {subject}\n\n{body}\n\n{ME['email_signature'].strip()}"
+        out = llm(CRITIC.format(email=email_text, facts=facts, proofs=proof_text()),
+                  as_json=True, temperature=0, model=env("CRITIC_MODEL", "llama-3.1-8b-instant"))
         return [] if out.get("ok") else [f"critic: {i}" for i in (out.get("issues") or ["not ok"])][:3]
     except Exception as e:
         log(f"critic unavailable: {e}")
@@ -153,7 +157,8 @@ THEIR SITE ANALYSIS: {intel}
 ME: {ME['one_liner']}. Want: {ME['roles_wanted']}.
 MY PROOF ATOMS (pick by overlap with their eng_challenges, not by fame):
 {proof_text()}"""
-    allowed = proof_text() + facts + intel
+    allowed = (proof_text() + facts + intel + ME["one_liner"] + " ".join(ME["experience"])
+               + ME["email_signature"])
     out = {}
     bad = []
     for _ in range(4):
@@ -176,7 +181,8 @@ MY PROOF ATOMS (pick by overlap with their eng_challenges, not by fame):
 def write_followup(contact, co, step):
     angle = ("short bump, add ONE new useful thing (a small idea for their product or a relevant thing I built)"
              if step == 2 else "final, 2-3 lines, polite, say I won't follow up again, leave the door open")
-    allowed = proof_text() + (co["intel"] or "") + (co["what_they_do"] or "")
+    allowed = (proof_text() + (co["intel"] or "") + (co["what_they_do"] or "") + ME["one_liner"]
+               + ME["email_signature"])
     body = ""
     for _ in range(3):
         out = llm(f"""Write follow-up #{step - 1} to {contact['name'] or 'the team'} at {co['name']} ({co['what_they_do']}).

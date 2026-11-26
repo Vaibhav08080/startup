@@ -92,9 +92,9 @@ class LLMError(RuntimeError):
     pass
 
 
-def llm(prompt, system="You are a precise assistant.", as_json=False, temperature=0.4, retries=3):
+def llm(prompt, system="You are a precise assistant.", as_json=False, temperature=0.4, retries=3, model=None):
     url = env("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/") + "/chat/completions"
-    first = env("LLM_MODEL", "gpt-4o-mini")
+    first = model or env("LLM_MODEL", "gpt-4o-mini")
     models = [m for m in [first] + [x for x in FALLBACK_MODELS if x != first] if m not in _dead_models]
     if "groq.com" not in url:
         models = [first]

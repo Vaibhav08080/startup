@@ -69,6 +69,19 @@ def migrate_v4():
         con.commit(); kv_set("migr_v4", "done"); log("migration v4: intel cleared, dry drafts requeued")
 
 
+def migrate_v5():
+    if kv_get("migr_v5") != "done":
+        con = db()
+        con.execute("UPDATE contacts SET state='queued' WHERE state='failed'")
+        con.execute("UPDATE contacts SET state='queued', step=0, subject=NULL, message_id=NULL, last_sent_at=NULL "
+                    "WHERE state='dry'")
+        con.execute("DELETE FROM sends WHERE dry=1")
+        con.commit()
+        import shutil
+        shutil.rmtree("outbox", ignore_errors=True)   # stale drafts from earlier versions
+        kv_set("migr_v5", "done"); log("migration v5: failed drafts requeued, outbox cleared")
+
+
 def radar_if_due(hours=6):
     last = kv_get("radar_last")
     if last and datetime.fromisoformat(last) > now_ist() - timedelta(hours=hours):
@@ -96,6 +109,7 @@ if __name__ == "__main__":
     migrate()
     migrate_v3()
     migrate_v4()
+    migrate_v5()
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     arg = sys.argv[2] if len(sys.argv) > 2 else None
     {
