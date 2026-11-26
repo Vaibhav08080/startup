@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 import feedparser
 from bs4 import BeautifulSoup
 
-from .core import CFG, db, discord, get, llm, log, now_ist
+from .core import CFG, LLMError, db, discord, get, llm, log, now_ist
 
 FUNDING_RE = re.compile(
     r"\b(raises?|raised|bags?|secures?|funding|seed|pre-seed|series [a-d]|pre-series|"
@@ -75,16 +75,29 @@ def run():
             fresh.append((url, title, summary[:1500]))
     con.commit()
     log(f"radar: {len(fresh)} new funding-looking articles")
+    seen = {u for u, _, _ in fresh}
+    for row in con.execute("SELECT url, title FROM articles WHERE processed=0 ORDER BY seen_at DESC LIMIT 150"):
+        if row["url"] not in seen:
+            fresh.append((row["url"], row["title"], ""))
 
-    added = []
+    added, fails = [], 0
     for url, title, summary in fresh:
         try:
             d = llm(EXTRACT_PROMPT.format(
                 roles=CFG["me"]["roles_wanted"], geos=", ".join(rc["geos_preferred"]),
                 skip=", ".join(rc["skip_sectors"]), title=title, summary=summary,
                 body=article_text(url)), as_json=True, temperature=0)
+        except LLMError as e:
+            fails += 1
+            log(f"extract fail: {e}")
+            if fails >= 3:
+                discord(f"⚠️ radar stopped: LLM keeps failing.\n```{str(e)[:900]}```")
+                log("radar: stopping after 3 LLM failures, unprocessed articles retry next run")
+                break
+            continue
         except Exception as e:
             log(f"extract fail: {e}"); continue
+        fails = 0
         con.execute("UPDATE articles SET processed=1 WHERE url=?", (url,))
         name = (d.get("company") or "").strip()
         if not d.get("is_single_company_funding") or not name:

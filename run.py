@@ -8,6 +8,7 @@
   python run.py hourly       # inbox -> radar (every 6h) -> contacts -> outreach  (put THIS in cron)
   python run.py status       # pipeline numbers
   python run.py go-live      # after DRY_RUN=false: requeue dry-run contacts
+  python run.py llmtest      # check the LLM key/model works
 """
 import sys
 
@@ -60,4 +61,5 @@ if __name__ == "__main__":
         "hourly": hourly,
         "status": status,
         "go-live": outreach.go_live_reset,
+        "llmtest": lambda: print("LLM OK:", __import__("hunter.core", fromlist=["llm"]).llm("Reply with the word pong.")),
     }[cmd]()

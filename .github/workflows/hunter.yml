@@ -10,7 +10,7 @@ on:
         required: true
         default: status
         type: choice
-        options: [status, hourly, radar, contacts, outreach, inbox, go-live]
+        options: [llmtest, status, hourly, radar, contacts, outreach, inbox, go-live]
 
 permissions:
   contents: write

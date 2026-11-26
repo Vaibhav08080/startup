@@ -84,29 +84,44 @@ def kv_set(k, v):
 
 
 # ---------------- LLM ----------------
+FALLBACK_MODELS = ["llama-3.3-70b-versatile", "openai/gpt-oss-120b", "llama-3.1-8b-instant"]
+_dead_models = set()
+
+
+class LLMError(RuntimeError):
+    pass
+
+
 def llm(prompt, system="You are a precise assistant.", as_json=False, temperature=0.4, retries=3):
     url = env("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/") + "/chat/completions"
-    body = {
-        "model": env("LLM_MODEL", "gpt-4o-mini"),
-        "temperature": temperature,
-        "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}],
-    }
-    if as_json:
-        body["response_format"] = {"type": "json_object"}
+    first = env("LLM_MODEL", "gpt-4o-mini")
+    models = [m for m in [first] + [x for x in FALLBACK_MODELS if x != first] if m not in _dead_models]
+    if "groq.com" not in url:
+        models = [first]
     last = None
-    for i in range(retries):
-        try:
-            r = requests.post(url, json=body, timeout=90,
-                              headers={"Authorization": f"Bearer {env('LLM_API_KEY')}"})
-            if r.status_code == 429:
-                time.sleep(15 * (i + 1)); continue
-            r.raise_for_status()
+    for model in models:
+        body = {"model": model, "temperature": temperature,
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]}
+        if as_json:
+            body["response_format"] = {"type": "json_object"}
+        for i in range(retries):
+            try:
+                r = requests.post(url, json=body, timeout=90,
+                                  headers={"Authorization": f"Bearer {env('LLM_API_KEY')}"})
+            except Exception as e:
+                last = e; time.sleep(3 * (i + 1)); continue
+            if r.status_code == 429 or r.status_code >= 500:
+                last = f"{r.status_code} {r.text[:300]}"; time.sleep(15 * (i + 1)); continue
+            if r.status_code in (400, 404) and "model" in r.text.lower():
+                _dead_models.add(model)
+                log(f"LLM model '{model}' unusable ({r.status_code}): {r.text[:300]} -> trying next model")
+                last = f"{r.status_code} {r.text[:300]}"
+                break
+            if r.status_code >= 400:
+                raise LLMError(f"{r.status_code} from {url}: {r.text[:400]}")
             out = r.json()["choices"][0]["message"]["content"].strip()
             return parse_json(out) if as_json else out
-        except Exception as e:  # noqa
-            last = e
-            time.sleep(3 * (i + 1))
-    raise RuntimeError(f"LLM failed: {last}")
+    raise LLMError(f"LLM failed on all models: {last}")
 
 
 def parse_json(text):
