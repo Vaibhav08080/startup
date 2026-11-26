@@ -38,7 +38,9 @@ Return JSON:
  "open_roles": [str],            // engineering roles visible on careers page, else []
  "eng_challenges": [str],        // 3 SPECIFIC backend/data/infra problems this product must solve at scale.
                                  // e.g. "ingesting bank statements from 50 formats reliably", not "scalability"
- "hook": str                     // one specific, true, non-flattering observation about them a founder would nod at
+ "hook": str                     // one specific, true, POSITIVE or neutral observation a founder would be glad someone noticed
+                                 // (an interesting product choice, a hard problem they took on, a customer win). NEVER criticise
+                                 // their website, copy, marketing, sales process or product.
 }}
 Only use facts present below. If the site text is empty, infer challenges from the product description.
 

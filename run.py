@@ -58,6 +58,17 @@ def migrate_v3():
         con.commit(); kv_set("migr_v3", "done"); log(f"migration v3: dropped {n} junk inboxes")
 
 
+def migrate_v4():
+    if kv_get("migr_v4") != "done":
+        con = db()
+        # v3 hooks were critical of the companies; regenerate intel, and redo dry drafts
+        con.execute("UPDATE companies SET intel=NULL")
+        con.execute("UPDATE contacts SET state='queued', step=0, subject=NULL, message_id=NULL, last_sent_at=NULL "
+                    "WHERE state='dry'")
+        con.execute("DELETE FROM sends WHERE dry=1")
+        con.commit(); kv_set("migr_v4", "done"); log("migration v4: intel cleared, dry drafts requeued")
+
+
 def radar_if_due(hours=6):
     last = kv_get("radar_last")
     if last and datetime.fromisoformat(last) > now_ist() - timedelta(hours=hours):
@@ -84,6 +95,7 @@ def hourly():
 if __name__ == "__main__":
     migrate()
     migrate_v3()
+    migrate_v4()
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     arg = sys.argv[2] if len(sys.argv) > 2 else None
     {

@@ -20,7 +20,8 @@ me:
 proof_of_work:
   - name: PolicyBazaar CDC migration
     url: "https://actualbuild.tech/work/policybazaar/"
-    pitch: "at PolicyBazaar, team of 4 moved batch data movement (Sqoop + AWS DMS) across 8,000+ tables to event-driven streaming on Kafka + Debezium CDC; I owned 12+ table pipelines. data lag went from 2-3 hours to 10-15 minutes on billions of records"
+    pitch: "at PolicyBazaar, my team of 4 moved batch data movement (Sqoop + AWS DMS) across 8,000+ tables to event-driven streaming on Kafka + Debezium CDC; I personally owned 12+ of those table pipelines end to end. data lag went from 2-3 hours to 10-15 minutes on billions of records"
+    team_numbers: ["8,000", "2-3", "10-15"]   # team results: email must say "my team" / "we" when using them
     tags: [data, streaming, kafka, cdc, fintech, insurtech, pipelines, backend, scale, analytics]
   - name: PolicyBazaar job tuning
     url: "https://actualbuild.tech/work/policybazaar/"

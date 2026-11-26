@@ -15,24 +15,39 @@ from .core import CFG, DRY_RUN, IST, ROOT, ai_tells, db, discord, env, get, kv_g
 ME = CFG["me"]
 OC = CFG["outreach"]
 
-SYSTEM = """You write short cold emails from a student engineer to a startup founder/CTO.
-Sound like a sharp engineer typing fast: plain, specific, slightly informal. Zero corporate tone.
+SYSTEM = """You write short cold emails from a final-year CS student engineer to a startup founder/CTO.
+Sound like a sharp, respectful engineer writing to a peer: plain, specific, warm, zero corporate tone.
 
-Structure (body only, no signature):
-1. "Hi <name>," then ONE line about THEM: use the given hook / a real eng challenge. Not congrats, not flattery.
-2. THE BRIDGE (most important): pick their single most relevant eng challenge and connect it to ONE proof atom
-   of mine that already solved a similar problem, with its real number. Pattern:
-   "<their challenge> is close to what I did at/in <proof>: <what + number>."
-   Optionally one more short proof line if it covers a different challenge.
-3. One concrete offer: small paid task / trial week / take a ticket off their backlog.
-4. One low-friction ask (e.g. "worth a 15 min call?").
+Structure (body only, no signature), each part its own paragraph separated by a blank line:
+1. "Hi <name>," on its own line.
+2. ONE line about THEM: something specific and genuinely interesting about what they build or their raise.
+   Never criticise or point out flaws in their company, website, copy, marketing, sales or product.
+3. ONE line on who I am (final-year CS student + the most relevant internship).
+4. THE BRIDGE: their most relevant engineering challenge -> ONE proof atom of mine that solved something
+   similar, with its real number. Keep attribution exact: if the atom says "my team", write "my team"/"we";
+   only claim "I" for what the atom says I personally did. At most one more short proof line.
+5. One concrete offer (small paid task / trial week / take a ticket off their backlog).
+6. One low-friction ask (e.g. "worth a 15 min call?").
 
 Hard rules:
-- 80-130 words. No em dashes. No buzzwords. No "I hope", "I came across", "passionate", "excited".
+- 90-140 words. No em dashes. No buzzwords. No "I hope", "I came across", "passionate", "excited".
 - Use ONLY numbers that appear in MY PROOF ATOMS or THEIR FACTS. Never invent metrics, users, or claims.
-- If a proof atom has a case study link, include that ONE link (the most relevant). Max 1 link in the whole email.\n- Don't list all my experience. Don't paste the resume. Resume is attached; you may say "resume attached".
-- Subject: 3-7 words, lowercase, specific to them (e.g. "kafka cdc help for <company>").
-Return JSON {"subject": str, "body": str, "bridge_used": str}"""
+- Don't guess their scale ("thousands of drones", "millions of users") unless it is in THEIR FACTS.
+- Resume is attached; you may say "resume attached". Max 1 link (a case study URL if the atom has one).
+- Subject: 3-7 words, lowercase, specific to them, no jargon soup (e.g. "backend help at vegapay").
+Return JSON {"subject": str, "body": str}"""
+
+CRITIC = """You review a cold email a student is about to send to a startup founder. Be strict.
+Flag ANY of: (a) criticises or talks down to the recipient's company, site, process or product;
+(b) claims personal credit for something MY PROOF ATOMS attribute to a team; (c) asserts facts about them
+not in THEIR FACTS (scale, problems stated as certain); (d) sounds desperate, salesy or generic;
+(e) does not say who the sender is.
+EMAIL:
+{email}
+THEIR FACTS: {facts}
+MY PROOF ATOMS:
+{proofs}
+Return JSON {{"ok": bool, "issues": [str]}}"""
 
 
 _LIVE = {}
@@ -64,13 +79,43 @@ def _nums(text):
     return {n.replace(",", "").rstrip(".") for n in re.findall(r"\d[\d,]*(?:\.\d+)?", text)}
 
 
+def tidy(text):
+    """Plain ASCII-ish punctuation and real paragraph breaks."""
+    for a, b in {"\u2011": "-", "\u2010": "-", "\u2012": "-", "\u2013": "-", "\u2014": "-", "\u00a0": " ",
+                 "\u202f": " ", "\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"', "\u2026": "..."}.items():
+        text = text.replace(a, b)
+    paras = [re.sub(r"[ \t]+", " ", p).strip() for p in re.split(r"\n\s*\n|\n", text.strip())]
+    return "\n\n".join(p for p in paras if p)
+
+
+def team_credit_problems(body):
+    probs = []
+    low = body.lower()
+    for p in CFG["proof_of_work"]:
+        for n in p.get("team_numbers", []):
+            if n in body.replace("\u2011", "-") and not re.search(r"\bmy team\b|\bwe\b|\bour team\b|\bteam of\b", low):
+                probs.append(f"team result {n} claimed as personal")
+                break
+    return probs
+
+
+def critic(subject, body, facts):
+    try:
+        out = llm(CRITIC.format(email=f"Subject: {subject}\n\n{body}", facts=facts, proofs=proof_text()),
+                  as_json=True, temperature=0)
+        return [] if out.get("ok") else [f"critic: {i}" for i in (out.get("issues") or ["not ok"])][:3]
+    except Exception as e:
+        log(f"critic unavailable: {e}")
+        return []
+
+
 def quality_problems(subject, body, contact):
     """Cheap deterministic checks before anything leaves the outbox."""
     probs = []
     words = len(body.split())
     if not subject.strip() or len(subject) > 70:
         probs.append("bad subject")
-    if not 60 <= words <= 160:
+    if not 70 <= words <= 170:
         probs.append(f"{words} words")
     fn = first_name(contact)
     first_line = body.strip().splitlines()[0] if body.strip() else ""
@@ -90,6 +135,15 @@ def invented_numbers(body, allowed_text):
 
 
 def write_initial(contact, co):
+    if not co["intel"] and co["domain"]:
+        try:
+            from . import intel as intel_mod
+            fresh = intel_mod.analyse(co, co["domain"])
+            con = db()
+            con.execute("UPDATE companies SET intel=? WHERE id=?", (fresh, co["id"])); con.commit()
+            co = con.execute("SELECT * FROM companies WHERE id=?", (co["id"],)).fetchone()
+        except Exception as e:
+            log(f"intel refresh failed for {co['name']}: {e}")
     intel = co["intel"] or "{}"
     facts = (f"{co['what_they_do']} | sector: {co['sector']} | {co['location']} | news: {co['article_title']} | "
              f"round: {co['round']} {co['amount']} | investors: {co['investors']}")
@@ -101,10 +155,18 @@ MY PROOF ATOMS (pick by overlap with their eng_challenges, not by fame):
 {proof_text()}"""
     allowed = proof_text() + facts + intel
     out = {}
+    bad = []
     for _ in range(4):
-        out = llm(prompt, system=SYSTEM, as_json=True, temperature=0.7)
-        body, subj = out.get("body", ""), out.get("subject", "")
-        bad = ai_tells(body + subj) + invented_numbers(body, allowed) + quality_problems(subj, body, contact)
+        if bad:
+            prompt_now = prompt + "\n\nYOUR PREVIOUS DRAFT WAS REJECTED FOR: " + "; ".join(bad) + ". Fix that."
+        else:
+            prompt_now = prompt
+        out = llm(prompt_now, system=SYSTEM, as_json=True, temperature=0.7)
+        body, subj = tidy(out.get("body", "")), tidy(out.get("subject", "")).lower()
+        bad = (ai_tells(body + subj) + invented_numbers(body, allowed) + quality_problems(subj, body, contact)
+               + team_credit_problems(body))
+        if body and not bad:
+            bad = critic(subj, body, facts + " | " + intel)
         if body and not bad:
             return subj.strip(), body.strip()
         log(f"rewrite {co['name']}: {bad}")
@@ -122,7 +184,7 @@ Their site analysis: {co['intel'] or '{}'}
 Earlier I emailed about working with them as {ME['roles_wanted']}. Angle: {angle}.
 Start with "Hi {first_name(contact) or 'there'},". Max 60 words. No "just following up" / "circling back" /
 "bumping this". Never invent numbers. Return JSON {{"body": str}}.""", system=SYSTEM, as_json=True, temperature=0.8)
-        body = (out.get("body") or "").replace("—", "-").strip()
+        body = tidy(out.get("body") or "")
         low = body.lower()
         bad = ai_tells(body) + invented_numbers(body, allowed) + [
             p for p in ("just following up", "circling back", "bumping this") if p in low]
