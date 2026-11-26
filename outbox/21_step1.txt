@@ -1,0 +1,12 @@
+TO: lokesh.popuri@lakshyaaerotech.com
+SUBJECT: kafka streaming for lakshya
+
+Hi Lokesh,
+Your sales funnel still depends on manual WhatsApp chats, which will choke growth as you scale.
+Real‑time ingestion and processing of telemetry from thousands of drones is close to what I did at PolicyBazaar: moved 8,000+ tables to event‑driven streaming on Kafka + Debezium, cutting lag from 2‑3 h to 10‑15 min on billions of records (case study: https://actualbuild.tech/work/policybazaar/).
+I can set up a low‑latency streaming pipeline for your drone fleet on a paid trial week and take a backlog ticket off your hands.
+Worth a 15 min call?
+
+Vaibhav Kr. Prince
+B.Tech CSE, MAIT (2027) | CGPA 8.9
+actualbuild.tech | github.com/Vaibhav08080 | linkedin.com/in/vaibhavkumarprince

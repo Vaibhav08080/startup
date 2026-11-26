@@ -1,0 +1,7 @@
+[14:32:27] migration v3: dropped 1 junk inboxes
+[14:32:30] LLM model 'llama-3.3-70b-versatile' unusable (404): {"error":{"message":"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+ -> trying next model
+[14:32:33] 🧪 DRY step1 lokesh.popuri@lakshyaaerotech.com
+[14:32:37] 🧪 DRY step1 puneet@vegapay.tech
+[14:32:37] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[14:32:56] 🧪 DRY step1 careers@matters.ai

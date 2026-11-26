@@ -1,0 +1,12 @@
+TO: puneet@vegapay.tech
+SUBJECT: real-time cdc for vegapay
+
+Hi Puneet,
+I saw you’re rebuilding core‑banking functionality inside a fintech wrapper.
+Real‑time underwriting and risk scoring for instant UPI credit‑line activation is close to what I did at PolicyBazaar CDC migration: I moved 8,000+ tables to event‑driven Kafka streams, cutting data lag from 2‑3 h to 10‑15 min on billions of records (case study: https://actualbuild.tech/work/policybazaar/).
+I can take a ticket to prototype a low‑latency CDC pipeline for your UPI feed for a paid week. My resume is attached.
+Worth a 15 min call?
+
+Vaibhav Kr. Prince
+B.Tech CSE, MAIT (2027) | CGPA 8.9
+actualbuild.tech | github.com/Vaibhav08080 | linkedin.com/in/vaibhavkumarprince
