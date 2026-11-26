@@ -67,28 +67,12 @@ radar:
 
 # ============ OUTREACH ============
 outreach:
-  daily_send_cap: 15          # keep low on a normal Gmail; raise slowly
+  daily_send_cap: 15          # max per day once warmed up
+  warmup: [[7, 5], [14, 10]]  # first 7 days: 5/day, days 8-14: 10/day, then daily_send_cap
+  verify_below_confidence: 80 # Hunter-verify any email less sure than this before sending
+  exclude_domains: [policybazaar.com, pbfintech.in, algomighty.com, techiegreek.com]
   per_run_cap: 4              # cron runs hourly -> spreads sends through the day
   send_window_ist: [10, 19]   # only send between 10:00 and 19:00 IST, Mon-Sat
   min_gap_seconds: [90, 300]  # random pause between two sends
   followups_after_days: [4, 9]   # 2 follow-ups max, then stop
   max_contacts_per_company: 2    # founder + CTO/eng lead
-
-# ============ YAP AGENT ============
-yap:
-  publisher: buffer           # buffer (free plan works) | typefully
-  platforms: [x]              # used by typefully only
-  posts_per_day: 2
-  mode: schedule              # typefully only: schedule | draft. Buffer always adds to its queue
-  github_user: vaibhav08080
-  language: "english, casual, lowercase-ish; a Hinglish word sometimes is fine"
-  # PASTE 5-10 OF YOUR REAL TWEETS HERE. This is what makes it sound like you.
-  voice_samples:
-    - "shipped alerts in notlogs today. clickhouse is stupid fast once you stop fighting it"
-    - "3 internships in and the biggest lesson: nobody cares about your stack, they care if it works at 2am"
-  post_mix:                   # weights for what kind of post to write
-    build_in_public: 4        # from your real GitHub commits
-    news_take: 3              # opinion on today's tech/startup news
-    funding_take: 2           # take on a startup that just raised (from radar)
-    learning: 2               # something you learned (DSA / system design)
-    project_showcase: 1       # link to NotLogs / SparkSite

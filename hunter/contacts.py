@@ -116,6 +116,19 @@ def scrape_emails(domain):
     return list(found)
 
 
+def hunter_verify(email):
+    """valid / accept_all / unknown / invalid. 'invalid' never gets mailed."""
+    key = env("HUNTER_API_KEY")
+    if not key:
+        return "unknown"
+    try:
+        d = requests.get("https://api.hunter.io/v2/email-verifier",
+                         params={"email": email, "api_key": key}, timeout=40).json().get("data") or {}
+        return d.get("status") or d.get("result") or "unknown"
+    except Exception:
+        return "unknown"
+
+
 def people_for(c, domain):
     people = hunter_people(domain)
     known = {p["email"].lower() for p in people}
@@ -139,7 +152,20 @@ def people_for(c, domain):
         if e not in known and any(g in local for g in GOOD_GENERIC):
             people.append({"name": "", "role": "careers inbox", "email": e, "source": "site", "confidence": 60})
     people.sort(key=lambda p: (score_role(p["role"]), p["confidence"]), reverse=True)
-    return people[:CFG["outreach"]["max_contacts_per_company"]]
+    keep, limit = [], CFG["outreach"]["max_contacts_per_company"]
+    for p in people:
+        if len(keep) >= limit:
+            break
+        if p["confidence"] < CFG["outreach"].get("verify_below_confidence", 80):
+            status = hunter_verify(p["email"])
+            if status == "invalid":
+                log(f"verify: drop {p['email']} (invalid)")
+                continue
+            if status == "valid":
+                p["confidence"] = max(p["confidence"], 90)
+            p["source"] += f"+{status}"
+        keep.append(p)
+    return keep
 
 
 def run(limit=10):
@@ -149,6 +175,13 @@ def run(limit=10):
     n = 0
     for c in rows:
         domain = resolve_domain(c)
+        excluded = CFG["outreach"].get("exclude_domains", [])
+        if domain and any(domain == x or domain.endswith("." + x) for x in excluded):
+            con.execute("UPDATE companies SET status='skipped', domain=? WHERE id=?", (domain, c["id"])); con.commit()
+            log(f"contacts: {c['name']} excluded ({domain})"); continue
+        if domain and con.execute("SELECT 1 FROM companies WHERE domain=? AND id<>?", (domain, c["id"])).fetchone():
+            con.execute("UPDATE companies SET status='skipped', domain=? WHERE id=?", (domain, c["id"])); con.commit()
+            log(f"contacts: {c['name']} duplicate of an existing company ({domain})"); continue
         if not domain or not has_mx(domain):
             con.execute("UPDATE companies SET status='no_contacts' WHERE id=?", (c["id"],)); con.commit()
             log(f"contacts: no domain for {c['name']}"); continue

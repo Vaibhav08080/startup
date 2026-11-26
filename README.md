@@ -1,52 +1,59 @@
 # startup-hunter 🎯
 
-Funded startups dhundho → founders/CTO ke email nikalo → proof-of-work ke saath personalised mail + 2 follow-ups → replies pe ruk jao → aur roz X pe tere real kaam se yap karo.
+Jin startups ko abhi funding mili hai, unke founder/CTO ko personalised cold email + 2 follow-ups. Reply aaye toh bot ruk jaata hai aur tujhe call-prep deta hai. Sab GitHub Actions pe chalta hai, laptop band ho tab bhi.
 
 ```
 RSS (Inc42, Entrackr, YourStory, TechCrunch, Google News)
-   └─▶ radar      : funding filter + LLM extract (company, round, founders, relevance 0-10)
-        └─▶ contacts : domain → Hunter.io / founder-name patterns / site careers@ → best 2 people
-             └─▶ outreach : LLM email (picks 1-2 relevant projects) → Gmail SMTP → follow-ups day 4 & 9
-                  └─▶ inbox    : IMAP watch → reply = stop + 🔥 Discord ping, bounce = next contact
-yap: GitHub commits + HN + news + fresh raises → post in your voice → Buffer → X
-Everything logs to Discord #job-hunt (scout channel).
+  └─▶ radar     funding news filter → LLM extract (company, round, founders, relevance 0-10)
+      └─▶ contacts  domain → Hunter.io / founder-name pattern / careers@ → verify → best 2 people
+          │         + company intel: their own site (product, eng problems, open roles)
+          └─▶ outreach  email = their problem → your matching proof + real number → offer → ask
+              │         quality gate → Gmail SMTP → follow-ups on day 4 and 9 (same thread)
+              └─▶ inbox   reply = stop + 🔥 Discord + 🧠 call-prep · bounce = next contact
 ```
 
-## Kaise chalta hai
+## Kab kya hota hai
 
-GitHub Actions pe, tera laptop on ho ya off. Workflow: `.github/workflows/hunter.yml`
-
-| Kab (IST) | Kya |
+| Kab | Kya |
 |---|---|
-| har ghante | replies/bounces check → radar (har 6h) → contacts → outreach (sirf 10:00-19:00 Mon-Sat, 15/day) |
-| 08:47 | LinkedIn draft Discord pe (tu khud post karega) |
-| 09:23, 18:41 | X post Buffer queue mein (Buffer apne posting schedule pe post karta hai) |
+| har ghante | replies/bounces check → radar (har 6h) → contacts → outreach |
+| bhejne ka time | 10:00-19:00 IST, Mon-Sat |
+| roz kitne | warm-up: pehle 7 din 5/day, din 8-14 10/day, phir 15/day |
+| reply aaya | sequence stop + 🔥 ping + 🧠 call-prep note (unki problems, tere best proofs, questions, suggested reply) |
 | 21:00 ke baad | din ka summary Discord pe |
-| reply aaya | 🔥 ping + 🧠 call-prep note Discord pe |
 
-Har run ke baad `hunter.db` (kisko mail gaya, kisne reply kiya) repo mein commit hota hai, wahi bot ki memory hai.
+## Safety (spam folder aur galat mails se bachne ke liye)
+
+- **Ek company mein sirf ek banda.** CTO → founder → eng lead → careers@. Dusra sirf bounce pe.
+- **Guessed emails verify hote hain** (Hunter). Invalid wale kabhi nahi bhejte.
+- **Same company do baar nahi**, chahe naam alag likha ho (domain se match). `exclude_domains` mein jo companies hain unhe kabhi mail nahi.
+- **Quality gate:** 60-160 words, greeting mein sahi naam, koi `[placeholder]` nahi, max 2 links, AI-wale phrases nahi, aur **koi bhi number jo tere resume ya unki news mein nahi hai = mail reject**. 4 tries mein clean mail na bane toh company skip + Discord pe batata hai.
+- **Max 2 follow-ups**, phir band. Reply aaya toh turant band.
 
 ## Setup (one time)
 
-**1. Secrets** — repo → Settings → Secrets and variables → Actions → **New repository secret**:
+**1. Secrets:** repo → Settings → Secrets and variables → Actions → **New repository secret**
 
 | Secret | Kahan se |
 |---|---|
-| `LLM_API_KEY` | console.groq.com → API Keys |
-| `GMAIL_ADDRESS` | vaibhavofficial745@gmail.com |
-| `GMAIL_APP_PASSWORD` | myaccount.google.com → Security → 2-Step ON → App passwords |
-| `HUNTER_API_KEY` | hunter.io → API |
-| `BUFFER_API_KEY` | publish.buffer.com/settings/api → Personal Access → + New Key |
-| `BUFFER_CHANNEL_ID` | @Vaibhaavvvvvv ka Buffer channel id (Claude nikaal dega) |
-| `DISCORD_WEBHOOK_URL` | #job-hunt → Edit Channel → Integrations → Webhooks |
+| `LLM_API_KEY` | console.groq.com → API Keys (free) |
+| `GMAIL_ADDRESS` | jis Gmail se bhejna hai |
+| `GMAIL_APP_PASSWORD` | myaccount.google.com → Security → 2-Step Verification ON → App passwords |
+| `HUNTER_API_KEY` | hunter.io → API (free: 25 searches + 50 verifications/month) |
+| `DISCORD_WEBHOOK_URL` | #job-hunt → Edit Channel → Integrations → Webhooks → New |
 
-**2. Variables** (same page, **Variables** tab) — optional:
-- `DRY_RUN` = `true` (default). Drafts Discord + `outbox/` mein, kuch send nahi hota.
-- `LLM_MODEL`, `LLM_BASE_URL` — sirf agar Groq ke alawa kuch use karna ho.
+**2. Variable** (same page, **Variables** tab): `DRY_RUN` = `true`. Is mode mein mails sirf Discord pe aur `outbox/` mein aate hain, bheje nahi jaate.
 
-**3. Test** — Actions tab → startup-hunter → **Run workflow** → `radar`, phir `contacts`, phir `outreach`, phir `yap`, `linkedin`. Discord dekh.
+**3. Test:** Actions tab → startup-hunter → **Run workflow** → `radar`, phir `contacts`, phir `outreach`. Discord pe drafts dekh.
 
-**4. Go live** — drafts theek lage toh Variables mein `DRY_RUN` = `false`, phir Run workflow → `go-live`. Bas.
+**4. Go live:** drafts theek lage toh `DRY_RUN` = `false` kar, phir Run workflow → `go-live`. Bas, ab har ghante apne aap chalega.
+
+## Config (`config.yaml`)
+
+- `me`: signature, resume, experience
+- `proof_of_work`: tere proof atoms. Har ek ek sachchi achievement hai number ke saath, aur `url` mein case study. **Bot sirf yahi numbers use kar sakta hai.**
+- `radar.min_relevance`: 6 default. Zyada junk aaye toh 7 kar.
+- `outreach.daily_send_cap`, `warmup`, `exclude_domains`, `followups_after_days`
 
 ## Local run (optional)
 
@@ -54,19 +61,6 @@ Har run ke baad `hunter.db` (kisko mail gaya, kisne reply kiya) repo mein commit
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env    # fill it
+python run.py radar && python run.py contacts && python run.py outreach
 python run.py status
 ```
-
-## Tuning
-
-- `radar.min_relevance` — 6 default. Zyada junk aaye toh 7.
-- `outreach.daily_send_cap` — **15 se start kar**. Naye Gmail se 50+/day = spam folder. 2-3 hafte baad 25.
-- Ek company mein sirf **ek** banda mail hota hai (CTO > founder > eng lead > careers@). Dusra sirf bounce pe.
-- `yap.publisher: typefully` — agar baad mein Typefully paid lo toh switch.
-
-## Kyun aise bana hai (important)
-
-- **X API direct nahi, Buffer se** — X ka API paid hai aur scheduling endpoint hi nahi hai. Buffer free plan + personal API key se tere account pe queue karta hai.
-- **Auto-replies / auto-likes nahi daale** — X rules mein automated replies spam count hote hain, account suspend ka sabse fast tareeka. Original posts safe hain. Reply-guy game khud 15 min/day kar, wo tere real voice mein hi kaam karta hai.
-- **Yap sirf real context se likhta hai** (tere commits, actual news, actual raises) aur fake metrics/claims banned hain. "Genuine lagna" = genuine hona; fake stats pakde jaate hain aur founders wahi log hain jinhe tu mail kar raha hai.
-- **Emails mein soft opt-out vibe + max 2 follow-ups + reply pe stop** — deliverability bachi rahegi aur domain blacklist nahi hoga.

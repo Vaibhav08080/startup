@@ -5,15 +5,13 @@
   python run.py contacts     # find founder/CTO emails
   python run.py outreach     # send initial emails + follow-ups (respects caps/window)
   python run.py inbox        # detect replies/bounces, stop sequences
-  python run.py yap [n]      # write + schedule n X posts (Typefully)
-  python run.py linkedin     # LinkedIn draft to Discord (you post it yourself)
   python run.py hourly       # inbox -> radar (every 6h) -> contacts -> outreach  (put THIS in cron)
   python run.py status       # pipeline numbers
   python run.py go-live      # after DRY_RUN=false: requeue dry-run contacts
 """
 import sys
 
-from hunter import contacts, outreach, radar, yap
+from hunter import contacts, outreach, radar
 from datetime import datetime, timedelta
 
 from hunter.core import DRY_RUN, db, discord, kv_get, kv_set, log, now_ist
@@ -24,8 +22,7 @@ def status():
     q = lambda s: con.execute(s).fetchall()
     co = dict(q("SELECT status, COUNT(*) FROM companies GROUP BY status"))
     ct = dict(q("SELECT state, COUNT(*) FROM contacts GROUP BY state"))
-    posts = q("SELECT COUNT(*) FROM posts")[0][0]
-    msg = (f"📊 **startup-hunter** {'(DRY RUN)' if DRY_RUN else ''}\ncompanies: {co}\ncontacts: {ct}\nposts: {posts}")
+    msg = (f"📊 **startup-hunter** {'(DRY RUN)' if DRY_RUN else ''}\ncompanies: {co}\ncontacts: {ct}")
     print(msg)
     return msg
 
@@ -60,8 +57,6 @@ if __name__ == "__main__":
         "contacts": contacts.run,
         "outreach": outreach.run,
         "inbox": outreach.check_inbox,
-        "yap": lambda: yap.run(int(arg) if arg else 1),
-        "linkedin": yap.linkedin_draft,
         "hourly": hourly,
         "status": status,
         "go-live": outreach.go_live_reset,

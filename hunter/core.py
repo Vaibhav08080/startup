@@ -59,9 +59,6 @@ CREATE TABLE IF NOT EXISTS sends (
   sent_at TEXT, dry INT
 );
 CREATE TABLE IF NOT EXISTS kv (k TEXT PRIMARY KEY, v TEXT);
-CREATE TABLE IF NOT EXISTS posts (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, text TEXT, typefully_id TEXT, created_at TEXT
-);
 """
 
 
@@ -139,7 +136,7 @@ def get(url, **kw):
     return requests.get(url, **kw)
 
 
-# AI-tell phrases we never want in emails/posts
+# AI-tell phrases we never want in emails
 BANNED = ["i hope this email finds you well", "i came across", "i am writing to", "delve", "leverage",
           "synergy", "passionate about", "thrilled", "excited to", "game-changer", "game changer",
           "cutting-edge", "in today's fast-paced", "i'd love to", "unlock", "elevate", "tapestry",

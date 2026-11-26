@@ -10,7 +10,7 @@ from email.message import EmailMessage
 from email.utils import make_msgid, parseaddr
 from pathlib import Path
 
-from .core import CFG, DRY_RUN, IST, ROOT, ai_tells, db, discord, env, get, llm, log, now_ist
+from .core import CFG, DRY_RUN, IST, ROOT, ai_tells, db, discord, env, get, kv_get, kv_set, llm, log, now_ist
 
 ME = CFG["me"]
 OC = CFG["outreach"]
@@ -64,6 +64,25 @@ def _nums(text):
     return {n.replace(",", "").rstrip(".") for n in re.findall(r"\d[\d,]*(?:\.\d+)?", text)}
 
 
+def quality_problems(subject, body, contact):
+    """Cheap deterministic checks before anything leaves the outbox."""
+    probs = []
+    words = len(body.split())
+    if not subject.strip() or len(subject) > 70:
+        probs.append("bad subject")
+    if not 60 <= words <= 160:
+        probs.append(f"{words} words")
+    fn = first_name(contact)
+    first_line = body.strip().splitlines()[0] if body.strip() else ""
+    if fn and fn.lower() not in first_line.lower():
+        probs.append("greeting name missing")
+    if re.search(r"\[[^\]]*\]|\{[^}]*\}|<[^>]*>", body):
+        probs.append("template placeholder left")
+    if body.count("http") > 2:
+        probs.append("too many links")
+    return probs
+
+
 def invented_numbers(body, allowed_text):
     """Every number in the email must exist in my proof atoms or their facts (small ones like '15 min' are ok)."""
     allowed = _nums(allowed_text)
@@ -85,21 +104,31 @@ MY PROOF ATOMS (pick by overlap with their eng_challenges, not by fame):
     for _ in range(4):
         out = llm(prompt, system=SYSTEM, as_json=True, temperature=0.7)
         body, subj = out.get("body", ""), out.get("subject", "")
-        bad = ai_tells(body + subj) + invented_numbers(body, allowed)
+        bad = ai_tells(body + subj) + invented_numbers(body, allowed) + quality_problems(subj, body, contact)
         if body and not bad:
             return subj.strip(), body.strip()
         log(f"rewrite {co['name']}: {bad}")
-    return out.get("subject", f"backend help for {co['name']}").strip(), out.get("body", "").replace("—", "-").strip()
+    raise RuntimeError(f"no clean draft for {co['name']} after 4 tries: {bad}")
 
 
 def write_followup(contact, co, step):
     angle = ("short bump, add ONE new useful thing (a small idea for their product or a relevant thing I built)"
              if step == 2 else "final, 2-3 lines, polite, say I won't follow up again, leave the door open")
-    out = llm(f"""Write follow-up #{step - 1} to {contact['name'] or 'the team'} at {co['name']} ({co['what_they_do']}).
+    allowed = proof_text() + (co["intel"] or "") + (co["what_they_do"] or "")
+    body = ""
+    for _ in range(3):
+        out = llm(f"""Write follow-up #{step - 1} to {contact['name'] or 'the team'} at {co['name']} ({co['what_they_do']}).
+Their site analysis: {co['intel'] or '{}'}
 Earlier I emailed about working with them as {ME['roles_wanted']}. Angle: {angle}.
-Max 60 words. No "just following up" / "circling back" / "bumping this". Return JSON {{"body": str}}.""",
-              system=SYSTEM, as_json=True, temperature=0.8)
-    return out.get("body", "").replace("—", "-").strip()
+Start with "Hi {first_name(contact) or 'there'},". Max 60 words. No "just following up" / "circling back" /
+"bumping this". Never invent numbers. Return JSON {{"body": str}}.""", system=SYSTEM, as_json=True, temperature=0.8)
+        body = (out.get("body") or "").replace("—", "-").strip()
+        low = body.lower()
+        bad = ai_tells(body) + invented_numbers(body, allowed) + [
+            p for p in ("just following up", "circling back", "bumping this") if p in low]
+        if body and not bad and len(body.split()) <= 80:
+            return body
+    raise RuntimeError(f"no clean follow-up for {co['name']}")
 
 
 def build(contact, subject, body, reply_to_id=None):
@@ -129,6 +158,18 @@ def in_window():
     n = now_ist()
     lo, hi = OC["send_window_ist"]
     return n.weekday() < 6 and lo <= n.hour < hi
+
+
+def todays_cap():
+    """Gmail warm-up: start slow, ramp to daily_send_cap."""
+    first = kv_get("first_send_day")
+    if not first:
+        return OC["warmup"][0][1] if OC.get("warmup") else OC["daily_send_cap"]
+    day_n = (now_ist().date() - datetime.fromisoformat(first).date()).days + 1
+    for upto, cap in OC.get("warmup", []):
+        if day_n <= upto:
+            return cap
+    return OC["daily_send_cap"]
 
 
 def sent_today(con):
@@ -162,6 +203,8 @@ def dispatch(con, contact, co, step):
     msg = build(contact, subject, body, reply_to)
     if not DRY_RUN:
         smtp_send(msg)
+        if not kv_get("first_send_day"):
+            kv_set("first_send_day", now_ist().date().isoformat())
     record(con, contact, step, subject, body, msg["Message-ID"])
     tag = "🧪 DRY" if DRY_RUN else "📨 SENT"
     discord(f"{tag} step {step} → **{co['name']}** · {contact['name'] or ''} ({contact['role']}) <{contact['email']}>\n"
@@ -173,7 +216,7 @@ def run():
     if not in_window() and not DRY_RUN:
         log("outreach: outside send window"); return 0
     con = db()
-    budget = min(OC["per_run_cap"], OC["daily_send_cap"] - sent_today(con))
+    budget = min(OC["per_run_cap"], todays_cap() - sent_today(con))
     if budget <= 0:
         log("outreach: daily cap hit"); return 0
     done = 0
@@ -191,7 +234,10 @@ def run():
         if last > now_ist() - timedelta(days=wait):
             continue
         co = con.execute("SELECT * FROM companies WHERE id=?", (c["company_id"],)).fetchone()
-        dispatch(con, c, co, c["step"] + 1); done += 1
+        try:
+            dispatch(con, c, co, c["step"] + 1); done += 1
+        except Exception as e:
+            log(f"followup fail {c['email']}: {e}"); discord(f"⚠️ follow-up failed {c['email']}: {e}")
         pause()
     # 2) new initial emails, best companies first, one contact per company per run
     rows = con.execute("""SELECT ct.* FROM contacts ct JOIN companies co ON co.id=ct.company_id
@@ -210,7 +256,8 @@ def run():
         try:
             dispatch(con, c, co, 1); done += 1
         except Exception as e:
-            log(f"send fail {c['email']}: {e}"); discord(f"⚠️ send failed {c['email']}: {e}")
+            con.execute("UPDATE contacts SET state='failed' WHERE id=?", (c["id"],)); con.commit()
+            log(f"send fail {c['email']}: {e}"); discord(f"⚠️ skipped {co['name']} <{c['email']}>: {e}")
         pause()
     # sequence finished after step 3
     con.execute("UPDATE contacts SET state='done' WHERE step>=3 AND state IN ('sent','dry')")
