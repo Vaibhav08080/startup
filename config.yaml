@@ -1,0 +1,93 @@
+# ============ YOU ============
+me:
+  name: Vaibhav
+  email_signature: |
+    Vaibhav Kr. Prince
+    B.Tech CSE, MAIT (2027) | CGPA 8.9
+    actualbuild.tech | github.com/Vaibhav08080 | linkedin.com/in/vaibhavkumarprince
+  resume_url: "https://actualbuild.tech"        # replace with a direct resume PDF link if you have one
+  resume_pdf_path: "./resume.pdf"                 # attached to the first email only
+  roles_wanted: "SDE / Backend / Data Engineering intern or full-time"
+  one_liner: "final-year CS student (MAIT, 8.9 CGPA) with 3 internships: PolicyBazaar data/backend, a GenAI startup, and an e-commerce SDE role"
+  experience:
+    - "Product Engineering Intern, PolicyBazaar (Jan-Jun 2026)"
+    - "Generative AI Engineer Intern, Algo Mighty Technology (Jun-Aug 2025)"
+    - "SDE Intern, Techie Greek (Jan-Mar 2025)"
+
+# url = case study page. Links are only used once the page is live (checked automatically).
+# Proof atoms: each is ONE specific, TRUE achievement. The writer picks the 1-2 that map to the
+# startup's real problems. Never let the LLM invent numbers; only these are allowed.
+proof_of_work:
+  - name: PolicyBazaar CDC migration
+    url: "https://actualbuild.tech/work/policybazaar/"
+    pitch: "at PolicyBazaar, team of 4 moved batch data movement (Sqoop + AWS DMS) across 8,000+ tables to event-driven streaming on Kafka + Debezium CDC; I owned 12+ table pipelines. data lag went from 2-3 hours to 10-15 minutes on billions of records"
+    tags: [data, streaming, kafka, cdc, fintech, insurtech, pipelines, backend, scale, analytics]
+  - name: PolicyBazaar job tuning
+    url: "https://actualbuild.tech/work/policybazaar/"
+    pitch: "cut a distributed pipeline's runtime 45% (80 -> 44 min) by fixing partitioning and joins"
+    tags: [data, performance, spark, etl, analytics, warehouse]
+  - name: Production RAG system
+    url: "https://actualbuild.tech/work/algo-mighty/"
+    pitch: "at a GenAI startup, built a production RAG pipeline (FastAPI, LangChain) over 25,000+ pages serving 300+ queries/day; hybrid BM25 + dense search on Qdrant with cross-encoder reranking (+15% relevance, Recall@5 82%), latency 5.2s -> 2.8s with Redis caching"
+    tags: [ai, llm, rag, genai, search, vector, python, fastapi, agents, saas, b2b]
+  - name: Voice agents
+    url: ""
+    pitch: "built voice + chat agents (speech-to-text -> LLM -> text-to-speech) that automated client communication"
+    tags: [ai, voice, agents, conversational, customer-support]
+  - name: E-commerce backend with Razorpay
+    url: ""
+    pitch: "built an e-commerce platform (React, Node, MongoDB) with 1,500+ users and 300+ monthly orders; Razorpay integration with webhook verification and failure handling, 20+ REST APIs with JWT/RBAC, API latency 450 -> 220 ms via indexing"
+    tags: [ecommerce, d2c, payments, fintech, backend, node, mongodb, marketplace, consumer]
+  - name: NotLogs
+    url: "https://actualbuild.tech/work/notlogs/"
+    pitch: "solo-built observability SaaS used by 100+ devs: SDKs batch logs into NATS JetStream, consumers write to ClickHouse, live tail over SSE; 4 SDKs on npm; AWS (ECS Fargate, ALB, CloudFront, WAF) provisioned with Terraform"
+    tags: [devtools, observability, infra, backend, clickhouse, aws, terraform, saas, b2b, data]
+  - name: SparkSite
+    url: "https://sparksite.in"
+    pitch: "AI app builder: chat prompt -> running Next.js app, code executes in isolated E2B sandboxes; generation runs as durable Inngest workflows with self-healing installs and OpenAI/Groq/Gemini failover; Razorpay subscriptions with HMAC verification"
+    tags: [ai, llm, devtools, nextjs, typescript, workflows, nocode, saas, consumer]
+  - name: DSA
+    url: ""
+    pitch: "600+ DSA problems solved (LeetCode, Codeforces); finalist at GeeksVerse 2025 hackathon out of 200+ teams"
+    tags: [fundamentals]
+
+# ============ RADAR ============
+radar:
+  lookback_days: 10
+  min_relevance: 6            # 0-10 LLM score: tech-product startup that might hire SDE/backend/data
+  geos_preferred: [India, Bangalore, Bengaluru, Delhi, Gurugram, Noida, Mumbai, Pune, Hyderabad, Remote]
+  skip_sectors: [real estate, d2c apparel, restaurant, liquor]
+  feeds:
+    - https://news.google.com/rss/search?q=startup+raises+seed+OR+%22series+a%22+OR+%22pre-series%22+when:7d&hl=en-IN&gl=IN&ceid=IN:en
+    - https://news.google.com/rss/search?q=%22raises%22+%22funding%22+AI+startup+India+when:7d&hl=en-IN&gl=IN&ceid=IN:en
+    - https://inc42.com/buzz/feed/
+    - https://entrackr.com/feed/
+    - https://yourstory.com/feed
+    - https://techcrunch.com/category/venture/feed/
+
+# ============ OUTREACH ============
+outreach:
+  daily_send_cap: 15          # keep low on a normal Gmail; raise slowly
+  per_run_cap: 4              # cron runs hourly -> spreads sends through the day
+  send_window_ist: [10, 19]   # only send between 10:00 and 19:00 IST, Mon-Sat
+  min_gap_seconds: [90, 300]  # random pause between two sends
+  followups_after_days: [4, 9]   # 2 follow-ups max, then stop
+  max_contacts_per_company: 2    # founder + CTO/eng lead
+
+# ============ YAP AGENT ============
+yap:
+  platforms: [x]              # add linkedin if connected in Typefully
+  posts_per_day: 2
+  mode: schedule              # schedule = next free Typefully slot | draft = sits in drafts
+  github_user: vaibhav08080
+  language: "english, casual, lowercase-ish; a Hinglish word sometimes is fine"
+  # PASTE 5-10 OF YOUR REAL TWEETS HERE. This is what makes it sound like you.
+  voice_samples:
+    - "shipped alerts in notlogs today. clickhouse is stupid fast once you stop fighting it"
+    - "3 internships in and the biggest lesson: nobody cares about your stack, they care if it works at 2am"
+  post_mix:                   # weights for what kind of post to write
+    build_in_public: 4        # from your real GitHub commits
+    news_take: 3              # opinion on today's tech/startup news
+    funding_take: 2           # take on a startup that just raised (from radar)
+    learning: 2               # something you learned (DSA / system design)
+    project_showcase: 1       # link to NotLogs / SparkSite
