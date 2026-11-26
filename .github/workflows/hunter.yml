@@ -3,6 +3,9 @@ name: startup-hunter
 on:
   schedule:
     - cron: "7 * * * *"     # every hour: inbox -> radar (every 6h) -> contacts -> outreach
+  push:
+    branches: [main]
+    paths: [kick.txt]        # push a command into kick.txt to run it (used for remote testing)
   workflow_dispatch:
     inputs:
       command:
@@ -47,13 +50,19 @@ jobs:
       - name: Pick command
         id: cmd
         run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "c=$(head -1 kick.txt | tr -cd 'a-z-')" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           case "${{ github.event.schedule }}" in
             "7 * * * *")   echo "c=hourly" >> "$GITHUB_OUTPUT" ;;
             *)             echo "c=${{ inputs.command || 'status' }}" >> "$GITHUB_OUTPUT" ;;
           esac
 
       - name: Run
-        run: python run.py ${{ steps.cmd.outputs.c }}
+        run: |
+          set -o pipefail
+          mkdir -p logs
+          python -u run.py ${{ steps.cmd.outputs.c }} 2>&1 | tee "logs/last-${{ steps.cmd.outputs.c }}.log"
 
       - name: Save state (who was emailed, replies, bounces)
         if: always()
@@ -62,6 +71,7 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           [ -f hunter.db ] && git add -f hunter.db
           [ -d outbox ] && git add -f outbox
+          [ -d logs ] && git add -f logs
           true
           if git diff --cached --quiet; then echo "no state change"; exit 0; fi
           git commit -m "state: ${{ steps.cmd.outputs.c }} $(date -u +%FT%TZ) [skip ci]"
