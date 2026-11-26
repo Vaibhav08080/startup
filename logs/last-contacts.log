@@ -1,0 +1,26 @@
+[14:30:26] migration v2: dropped 16 unverified contacts, companies re-queued for verified lookup
+[14:30:27] LLM model 'llama-3.3-70b-versatile' unusable (404): {"error":{"message":"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+ -> trying next model
+[14:30:32] domain rejected: Embo -> embo.org (The website embo.org belongs to the European Molecular Biology Organization (EMBO), a life‑science research organization, which is unrelated to the AI‑robotics startup mentioned in the news; there is no indication of Indian presence on the site.)
+[14:30:33] domain ok: Embo -> embo.com (india: no)
+[14:30:33] contacts: Embo skipped, no India presence
+[14:30:35] domain ok: Matters.AI -> matters.ai (india: unknown)
+[14:30:47] contacts: Matters.AI (matters.ai) -> ['careers@matters.ai', 'dpo@matters.ai']
+[14:30:49] domain ok: AidenAI -> aidenai.com (india: no)
+[14:30:49] contacts: AidenAI skipped, no India presence
+[14:30:53] domain rejected: Agon -> agon.bz.it (The news refers to Agon, a defense AI startup raising a Series A round, while the website agon.bz.it is a physiotherapy, nutrition and orthopaedics clinic in Sterzing, Italy. The domains, business focus (defense AI vs healthcare), location, and language are completely different, indicating they are unrelated entities. No indication of an Indian office, .in domain, or India‑focused content is present on the site.)
+[14:30:54] domain ok: Agon -> agon.com (india: no)
+[14:30:54] contacts: Agon skipped, no India presence
+[14:30:57] domain ok: Reversa -> reversa.ai (india: no)
+[14:30:57] contacts: Reversa skipped, no India presence
+[14:31:00] domain ok: Vegapay -> vegapay.tech (india: yes)
+[14:31:15] contacts: Vegapay (vegapay.tech) -> ['puneet@vegapay.tech', 'himanshu@vegapay.tech']
+[14:31:17] contacts: no domain for SUK-M
+[14:31:20] domain ok: Lakshya Aerotech -> lakshyaaerotech.com (india: yes)
+[14:31:25] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[14:31:42] contacts: Lakshya Aerotech (lakshyaaerotech.com) -> ['lokesh.popuri@lakshyaaerotech.com']
+[14:31:44] domain rejected: Neem -> neem.io (site unreachable)
+[14:31:45] domain rejected: Neem -> neem.com (The news article refers to a FinTech startup named Neem that raised seed funding from ADB Ventures, while the website neem.com describes Neem Interactive, an independent video game publisher and studio, which is unrelated to FinTech. No Indian office, .in domain, or India‑focused content is present.)
+[14:31:46] domain rejected: Neem -> neem.ai (The provided website snapshot contains no title, description, or text, so there are no details to match the Neem fintech mentioned in the news. Without branding, location, product, or team information, we cannot confirm that neem.ai is the same company, nor can we assess any Indian presence.)
+[14:31:48] domain rejected: Neem -> getneem.com (The news article refers to a FinTech startup that raised seed funding, while the website describes a dental practice management software product, which is unrelated to FinTech. No Indian location, .in domain, or India‑specific information is present on the site.)
+[14:31:48] contacts: no domain for Neem
