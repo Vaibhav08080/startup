@@ -1,4 +1,5 @@
 """Yap agent: real daily context -> post in your voice -> Typefully (X / LinkedIn)."""
+import json
 import random
 import re
 from datetime import datetime, timedelta, timezone
@@ -129,7 +130,7 @@ CONTEXT:
         if out.get("skip"):
             return kind, None
         x = (out.get("x") or "").strip().strip('"')
-        if x and not ai_tells(x) and "#" not in x:
+        if x and len(x) <= 280 and not ai_tells(x) and "#" not in x:
             return kind, {"x": x, "linkedin": (out.get("linkedin") or x).strip()}
     return kind, None
 
@@ -163,6 +164,27 @@ def push_typefully(post):
     return str(r.json().get("id", ""))
 
 
+def push_buffer(post):
+    """Buffer GraphQL API (personal key, works on the free plan). Adds to the channel's posting queue."""
+    text = post["x"]
+    q = ('mutation { createPost(input: { text: %s, channelId: %s, schedulingType: automatic, mode: addToQueue }) '
+         '{ ... on PostActionSuccess { post { id } } ... on MutationError { message } } }'
+         % (json.dumps(text), json.dumps(env("BUFFER_CHANNEL_ID"))))
+    r = requests.post("https://api.buffer.com", json={"query": q}, timeout=30,
+                      headers={"Authorization": f"Bearer {env('BUFFER_API_KEY')}"})
+    r.raise_for_status()
+    data = (r.json().get("data") or {}).get("createPost") or {}
+    if data.get("message") or r.json().get("errors"):
+        raise RuntimeError(data.get("message") or r.json().get("errors"))
+    return str((data.get("post") or {}).get("id", ""))
+
+
+def publish(post):
+    if Y.get("publisher", "buffer") == "typefully":
+        return push_typefully(post) if env("TYPEFULLY_API_KEY") else ""
+    return push_buffer(post) if env("BUFFER_API_KEY") and env("BUFFER_CHANNEL_ID") else ""
+
+
 def run(n=None, kind=None):
     n = n or 1
     made = 0
@@ -171,16 +193,16 @@ def run(n=None, kind=None):
         if not post:
             log(f"yap: skipped ({k})"); continue
         tid = ""
-        if not DRY_RUN and env("TYPEFULLY_API_KEY"):
+        if not DRY_RUN:
             try:
-                tid = push_typefully(post)
+                tid = publish(post)
             except Exception as e:
-                discord(f"⚠️ Typefully push failed: {e}"); log(f"typefully fail: {e}"); continue
+                discord(f"⚠️ post push failed: {e}"); log(f"publish fail: {e}"); continue
         con = db()
         con.execute("INSERT INTO posts(kind,text,typefully_id,created_at) VALUES(?,?,?,?)",
                     (k, post["x"], tid, now_ist().isoformat()))
         con.commit()
-        where = "🧪 DRY" if DRY_RUN else ("🗓️ scheduled" if Y["mode"] == "schedule" else "📝 drafted")
+        where = "🧪 DRY" if DRY_RUN else "🗓️ queued"
         discord(f"🗣️ **yap** ({k}) {where}:\n>>> {post['x']}")
         log(f"yap [{k}]: {post['x']}")
         made += 1

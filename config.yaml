@@ -76,9 +76,10 @@ outreach:
 
 # ============ YAP AGENT ============
 yap:
-  platforms: [x]              # add linkedin if connected in Typefully
+  publisher: buffer           # buffer (free plan works) | typefully
+  platforms: [x]              # used by typefully only
   posts_per_day: 2
-  mode: schedule              # schedule = next free Typefully slot | draft = sits in drafts
+  mode: schedule              # typefully only: schedule | draft. Buffer always adds to its queue
   github_user: vaibhav08080
   language: "english, casual, lowercase-ish; a Hinglish word sometimes is fine"
   # PASTE 5-10 OF YOUR REAL TWEETS HERE. This is what makes it sound like you.

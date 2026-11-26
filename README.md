@@ -8,7 +8,7 @@ RSS (Inc42, Entrackr, YourStory, TechCrunch, Google News)
         └─▶ contacts : domain → Hunter.io / founder-name patterns / site careers@ → best 2 people
              └─▶ outreach : LLM email (picks 1-2 relevant projects) → Gmail SMTP → follow-ups day 4 & 9
                   └─▶ inbox    : IMAP watch → reply = stop + 🔥 Discord ping, bounce = next contact
-yap: GitHub commits + HN + news + fresh raises → post in your voice → Typefully → X / LinkedIn
+yap: GitHub commits + HN + news + fresh raises → post in your voice → Buffer → X
 Everything logs to Discord #job-hunt (scout channel).
 ```
 
@@ -20,7 +20,7 @@ GitHub Actions pe, tera laptop on ho ya off. Workflow: `.github/workflows/hunter
 |---|---|
 | har ghante | replies/bounces check → radar (har 6h) → contacts → outreach (sirf 10:00-19:00 Mon-Sat, 15/day) |
 | 08:47 | LinkedIn draft Discord pe (tu khud post karega) |
-| 09:23, 18:41 | X post Typefully queue mein |
+| 09:23, 18:41 | X post Buffer queue mein (Buffer apne posting schedule pe post karta hai) |
 | 21:00 ke baad | din ka summary Discord pe |
 | reply aaya | 🔥 ping + 🧠 call-prep note Discord pe |
 
@@ -36,8 +36,8 @@ Har run ke baad `hunter.db` (kisko mail gaya, kisne reply kiya) repo mein commit
 | `GMAIL_ADDRESS` | vaibhavofficial745@gmail.com |
 | `GMAIL_APP_PASSWORD` | myaccount.google.com → Security → 2-Step ON → App passwords |
 | `HUNTER_API_KEY` | hunter.io → API |
-| `TYPEFULLY_API_KEY` | Typefully → Settings → API (publish permission) |
-| `TYPEFULLY_SOCIAL_SET_ID` | @Vaibhaavvvvvv ka id (Typefully mein add karne ke baad) |
+| `BUFFER_API_KEY` | publish.buffer.com/settings/api → Personal Access → + New Key |
+| `BUFFER_CHANNEL_ID` | @Vaibhaavvvvvv ka Buffer channel id (Claude nikaal dega) |
 | `DISCORD_WEBHOOK_URL` | #job-hunt → Edit Channel → Integrations → Webhooks |
 
 **2. Variables** (same page, **Variables** tab) — optional:
@@ -62,12 +62,11 @@ python run.py status
 - `radar.min_relevance` — 6 default. Zyada junk aaye toh 7.
 - `outreach.daily_send_cap` — **15 se start kar**. Naye Gmail se 50+/day = spam folder. 2-3 hafte baad 25.
 - Ek company mein sirf **ek** banda mail hota hai (CTO > founder > eng lead > careers@). Dusra sirf bounce pe.
-- `yap.platforms: [x, linkedin]` — LinkedIn Typefully mein connect karke.
-- `yap.mode: draft` — agar kabhi chahiye ki posts Typefully drafts mein ruk jaayein.
+- `yap.publisher: typefully` — agar baad mein Typefully paid lo toh switch.
 
 ## Kyun aise bana hai (important)
 
-- **X API direct nahi, Typefully se** — X ka API paid hai aur automated posting pe accounts flag hote hain. Typefully natural posting time ke saath tere account se post karta hai.
+- **X API direct nahi, Buffer se** — X ka API paid hai aur scheduling endpoint hi nahi hai. Buffer free plan + personal API key se tere account pe queue karta hai.
 - **Auto-replies / auto-likes nahi daale** — X rules mein automated replies spam count hote hain, account suspend ka sabse fast tareeka. Original posts safe hain. Reply-guy game khud 15 min/day kar, wo tere real voice mein hi kaam karta hai.
 - **Yap sirf real context se likhta hai** (tere commits, actual news, actual raises) aur fake metrics/claims banned hain. "Genuine lagna" = genuine hona; fake stats pakde jaate hain aur founders wahi log hain jinhe tu mail kar raha hai.
 - **Emails mein soft opt-out vibe + max 2 follow-ups + reply pe stop** — deliverability bachi rahegi aur domain blacklist nahi hoga.
