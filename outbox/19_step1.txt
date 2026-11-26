@@ -1,11 +1,17 @@
 TO: puneet@vegapay.tech
-SUBJECT: real-time cdc for vegapay
+SUBJECT: credit pipeline help
 
 Hi Puneet,
-I saw you’re rebuilding core‑banking functionality inside a fintech wrapper.
-Real‑time underwriting and risk scoring for instant UPI credit‑line activation is close to what I did at PolicyBazaar CDC migration: I moved 8,000+ tables to event‑driven Kafka streams, cutting data lag from 2‑3 h to 10‑15 min on billions of records (case study: https://actualbuild.tech/work/policybazaar/).
-I can take a ticket to prototype a low‑latency CDC pipeline for your UPI feed for a paid week. My resume is attached.
-Worth a 15 min call?
+
+Congrats on closing the Rs 38.4 Cr Series A and powering over 20 lakh credit accounts across India's banks.
+
+I'm a final-year CS student at MAIT (8.9 CGPA) who interned on data pipelines at PolicyBazaar.
+
+If real-time credit decisioning is on your plate, my team moved 8,000+ tables to event-driven Kafka + Debezium, shrinking lag from 2-3 hours to 10-15 minutes on billions of records. We also cut a distributed Spark job's runtime 45 % (80 → 44 min).
+
+I can prototype a low-latency CDC microservice for your credit line activations on a paid trial week.
+
+Would a 15-minute call work to discuss?
 
 Vaibhav Kr. Prince
 B.Tech CSE, MAIT (2027) | CGPA 8.9

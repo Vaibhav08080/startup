@@ -1,23 +1,11 @@
-[14:35:02] migration v4: intel cleared, dry drafts requeued
-[14:35:05] LLM model 'llama-3.3-70b-versatile' unusable (404): {"error":{"message":"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+[14:40:16] migration v5: failed drafts requeued, outbox cleared
+[14:40:18] LLM model 'llama-3.3-70b-versatile' unusable (404): {"error":{"message":"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
  -> trying next model
-[14:35:14] rewrite Lakshya Aerotech: ['8.9']
-[14:35:18] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[14:35:35] 🧪 DRY step1 lokesh.popuri@lakshyaaerotech.com
-[14:35:43] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[14:36:01] rewrite Vegapay: ['8.9']
-[14:36:01] LLM 429 on openai/gpt-oss-120b, waiting 20s
-[14:36:26] LLM 429 on openai/gpt-oss-120b, waiting 21s
-[14:36:48] rewrite Vegapay: ['critic: Missing sender name (e)']
-[14:36:48] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[14:37:06] rewrite Vegapay: ['8.9']
-[14:37:07] LLM 429 on openai/gpt-oss-120b, waiting 20s
-[14:37:30] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[14:37:47] rewrite Vegapay: ['critic: Email sounds salesy/desperate rather than genuine outreach', 'critic: Sender name is missing; email does not identify who is sending']
-[14:37:47] send fail puneet@vegapay.tech: no clean draft for Vegapay after 4 tries: ['critic: Email sounds salesy/desperate rather than genuine outreach', 'critic: Sender name is missing; email does not identify who is sending']
-[14:37:53] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[14:38:12] rewrite Matters.AI: ['8.9']
-[14:38:12] LLM 429 on openai/gpt-oss-120b, waiting 19s
-[14:38:35] LLM 429 on openai/gpt-oss-120b, waiting 16s
-[14:38:51] LLM 429 on openai/gpt-oss-120b, waiting 30s
-[14:39:22] 🧪 DRY step1 careers@matters.ai
+[14:40:22] LLM model 'llama-3.1-8b-instant' unusable (404): {"error":{"message":"The model `llama-3.1-8b-instant` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+ -> trying next model
+[14:40:23] 🧪 DRY step1 lokesh.popuri@lakshyaaerotech.com
+[14:40:30] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[14:40:47] 🧪 DRY step1 puneet@vegapay.tech
+[14:40:50] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[14:41:05] LLM 429 on openai/gpt-oss-120b, waiting 30s
+[14:41:37] 🧪 DRY step1 careers@matters.ai

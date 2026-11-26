@@ -1,17 +1,17 @@
 TO: lokesh.popuri@lakshyaaerotech.com
-SUBJECT: inventory pipeline help
+SUBJECT: inventory sync help
 
 Hi Lokesh,
 
 Congrats on the Rs 2.5 Crore seed round and the new MoU with SRM University-AP.
 
-I'm a final-year CS student at MAIT with internships in data/backend at PolicyBazaar, GenAI, and e-commerce SDE.
+I am a final-year CS student at MAIT (8.9 CGPA) with internships at PolicyBazaar (data/backend), a GenAI startup, and an e-commerce SDE role.
 
-Your real-time inventory pipeline needs sub-hour latency; at PolicyBazaar my team moved CDC for 8,000+ tables to Kafka, cutting lag from 2-3 h to 10-15 min on billions of records, and I owned 12+ pipelines end-to-end.
+If processing large telemetry streams is on your plate, my team moved 8,000+ tables to event-driven Kafka + Debezium, dropping lag from 2-3 hours to 10-15 minutes on billions of records; I owned 12+ pipelines end-to-end.
 
-I can build a prototype that matches user-uploaded part photos to drone models in a week, paid, to take a ticket off your backlog.
+I can take a backlog ticket to build a real-time inventory sync pipeline using the same stack, on a paid trial week. resume attached.
 
-Worth a 15 min call?
+Would a 15 min call work?
 
 Vaibhav Kr. Prince
 B.Tech CSE, MAIT (2027) | CGPA 8.9
