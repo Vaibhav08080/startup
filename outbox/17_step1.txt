@@ -1,11 +1,17 @@
 TO: careers@matters.ai
-SUBJECT: cdc latency help for matters.ai
+SUBJECT: reduce data lag
 
 Hi there,
-Your site repeats the same “It only takes one breach…” line, showing the messaging is still being hammered out.
-Real‑time detection and automated remediation of data misuse at petabyte scale is close to what I did at PolicyBazaar CDC migration: I cut data lag from 2‑3 hours to 10‑15 minutes on billions of records.
-I can take a ticket to build a low‑latency change‑feed prototype for your platform, paid for the week.
-Worth a 15 min call? Resume attached. Let me know.
+
+Congrats on the ₹115 crore pre-Series A and building the AI-native Security Engineer that resolves data misuse before a SOC ticket.
+
+I'm a final-year CS student at MAIT with internships at PolicyBazaar (data/backend), a GenAI startup, and an e-commerce SDE role. Resume attached.
+
+At PolicyBazaar, my team migrated CDC pipelines for 8,000+ tables to Kafka + Debezium, cutting data lag from 2-3 hours to 10-15 minutes on billions of records. We also trimmed a distributed pipeline's runtime by 45 % (80 → 44 min).
+
+I can take a low-latency detection ticket from your backlog and deliver a prototype in a week, paid or as a trial.
+
+Worth a 15 min call?
 
 Vaibhav Kr. Prince
 B.Tech CSE, MAIT (2027) | CGPA 8.9
