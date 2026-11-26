@@ -188,8 +188,13 @@ def hunter_verify(email):
         return "unknown"
 
 
+JUNK_INBOX = re.compile(r"^(dpo|privacy|gdpr|legal|abuse|no-?reply|support|help|billing|accounts?|finance|security|"
+                        r"compliance|admin|webmaster|postmaster|sales|marketing|press|media|pr|grievance|"
+                        r"investors?|ir|partners?|nodal)([._-]|$)", re.I)
+
+
 def people_for(c, domain):
-    people = hunter_people(domain)
+    people = [p for p in hunter_people(domain) if not JUNK_INBOX.match(p["email"].split("@")[0])]
     known = {p["email"].lower() for p in people}
     for f in json.loads(c["founders"] or "[]"):
         parts = f.get("name", "").split()

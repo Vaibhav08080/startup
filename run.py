@@ -50,6 +50,14 @@ def migrate():
         log(f"migration v2: dropped {n} unverified contacts, companies re-queued for verified lookup")
 
 
+def migrate_v3():
+    if kv_get("migr_v3") != "done":
+        con = db()
+        n = con.execute("DELETE FROM contacts WHERE state='queued' AND (email LIKE 'dpo@%' OR email LIKE 'privacy@%' "
+                        "OR email LIKE 'legal@%' OR email LIKE 'support@%')").rowcount
+        con.commit(); kv_set("migr_v3", "done"); log(f"migration v3: dropped {n} junk inboxes")
+
+
 def radar_if_due(hours=6):
     last = kv_get("radar_last")
     if last and datetime.fromisoformat(last) > now_ist() - timedelta(hours=hours):
@@ -75,6 +83,7 @@ def hourly():
 
 if __name__ == "__main__":
     migrate()
+    migrate_v3()
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     arg = sys.argv[2] if len(sys.argv) > 2 else None
     {
