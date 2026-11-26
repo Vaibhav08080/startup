@@ -34,6 +34,8 @@ jobs:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so the state commit can rebase onto newer code pushes
 
       - uses: actions/setup-python@v5
         with:
@@ -58,7 +60,17 @@ jobs:
         run: |
           git config user.name "startup-hunter-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -f hunter.db outbox 2>/dev/null || true
+          [ -f hunter.db ] && git add -f hunter.db
+          [ -d outbox ] && git add -f outbox
+          true
           if git diff --cached --quiet; then echo "no state change"; exit 0; fi
           git commit -m "state: ${{ steps.cmd.outputs.c }} $(date -u +%FT%TZ) [skip ci]"
-          for i in 1 2 3; do git pull --rebase -X ours && git push && break; sleep 5; done
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -X theirs origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "state saved"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          echo "::error::could not save hunter.db to the repo"
+          exit 1
