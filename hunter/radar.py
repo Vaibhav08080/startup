@@ -15,6 +15,11 @@ NOISE_RE = re.compile(r"\b(ipo|layoffs?|shuts? down|acquires|acquired|weekly fun
                       r"this week|roundup|top \d+)\b", re.I)
 
 
+JUNK_NAME = re.compile(r"^(undisclosed|unknown|unnamed|stealth|n/?a|none|startup|company)\b|"
+                       r"^(sifted|inc42|entrackr|yourstory|techcrunch|vccircle|economic times|mint|"
+                       r"business standard|crunchbase|tracxn)$", re.I)
+
+
 def article_text(url, limit=2500):
     if "news.google.com" in url:
         return ""
@@ -40,6 +45,7 @@ EXTRACT_PROMPT = """From this startup news item, extract the funding event. Retu
  "round": str, "amount": str, "investors": [str], "sector": str, "location": str,
  "what_they_do": str,                  // one plain sentence
  "founders": [{{"name": str, "role": str}}],  // only names actually in the text
+ "india": "yes"|"no"|"unknown",      // HQ, office or engineering team in India per the text
  "relevance": int  // 0-10: is this a TECH PRODUCT company likely to hire {roles}? 10 = AI/devtools/fintech/SaaS with eng team in India, 0 = non-tech
 }}
 Preferred geos: {geos}. Skip-sectors (score <=2): {skip}.
@@ -111,6 +117,9 @@ def run(max_extract=30, fetch=True):
         fails = 0
         con.execute("UPDATE articles SET processed=1 WHERE url=?", (url,))
         name = (d.get("company") or "").strip()
+        if JUNK_NAME.search(name):
+            log(f"   -> junk name '{name}', skip")
+            continue
         if not d.get("is_single_company_funding") or not name:
             log("   -> not a single-company raise, skip")
             continue
@@ -119,6 +128,8 @@ def run(max_extract=30, fetch=True):
             continue  # same raise reported by multiple outlets
         rel = int(d.get("relevance") or 0)
         status = "new" if rel >= rc["min_relevance"] else "skipped"
+        if rc.get("india_only") and d.get("india") == "no":
+            status = "skipped"
         con.execute("""INSERT INTO companies(name,website,round,amount,investors,sector,location,what_they_do,
                        founders,relevance,article_url,article_title,status,created_at)
                        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",

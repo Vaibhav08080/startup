@@ -4,6 +4,7 @@ import re
 from urllib.parse import urlparse
 
 import dns.resolver
+from bs4 import BeautifulSoup
 import requests
 
 from . import intel
@@ -11,10 +12,14 @@ from .core import CFG, db, env, get, llm, log, now_ist
 
 GENERIC_HOSTS = ("linkedin", "twitter", "x.com", "facebook", "instagram", "crunchbase", "tracxn",
                  "youtube", "medium", "wikipedia", "google", "apple.com", "play.google")
-ROLE_PRIORITY = [("cto", 100), ("chief technology", 100), ("co-founder", 90), ("cofounder", 90),
-                 ("founder", 90), ("ceo", 85), ("vp engineering", 80), ("head of engineering", 80),
-                 ("engineering manager", 70), ("tech lead", 65), ("talent", 50), ("hr", 45),
-                 ("recruit", 45), ("people", 40)]
+# whole-word patterns: "director" must NOT match "cto"
+ROLE_PRIORITY = [(r"\bcto\b", 100), (r"chief technology", 100), (r"\bco-?founder\b", 90), (r"\bfounder\b", 90),
+                 (r"\bceo\b", 85), (r"chief executive", 85), (r"vp,? (of )?engineering", 80),
+                 (r"head of (engineering|tech|data|platform)", 80), (r"director of (engineering|technology|data)", 75),
+                 (r"engineering manager", 70), (r"\b(tech|engineering) lead\b", 65), (r"talent", 50),
+                 (r"\bhr\b|human resources", 45), (r"recruit", 45), (r"\bpeople\b", 40)]
+BAD_ROLES = re.compile(r"marketing|sales|editor|journalis|growth|finance|legal|accountant|support|"
+                       r"customer|operations|\bpr\b|communications|design", re.I)
 GOOD_GENERIC = ("careers", "jobs", "hiring", "talent", "hr", "founders", "team")
 
 
@@ -43,34 +48,88 @@ def site_mentions(domain, name):
         return False
 
 
+def homepage(domain):
+    try:
+        r = get(f"https://{domain}", timeout=12)
+        if not r.ok:
+            return ""
+        soup = BeautifulSoup(r.text, "html.parser")
+        title = soup.title.get_text(" ", strip=True) if soup.title else ""
+        desc = " ".join(m.get("content", "") for m in soup.find_all("meta")
+                        if m.get("name", "").lower() in ("description", "og:description")
+                        or m.get("property", "").lower() == "og:description")
+        for t in soup(["script", "style", "nav", "footer"]):
+            t.decompose()
+        body = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))[:1500]
+        return f"TITLE: {title}\nDESCRIPTION: {desc}\nTEXT: {body}"
+    except Exception:
+        return ""
+
+
+def confirm_domain(c, domain):
+    """Open the site and ask: is this really the startup from the news? India presence?"""
+    page = homepage(domain)
+    if not page:
+        return None
+    out = llm(f"""News says: "{c['name']}" — {c['what_they_do']} | sector: {c['sector']} | location: {c['location']} |
+headline: {c['article_title']}
+
+Website {domain}:
+{page}
+
+Is this website the SAME startup as in the news (not a namesake, not a media site, not an unrelated org)?
+Does it show presence in India (Indian office/city, INR pricing, .in domain, India-focused customers or team)?
+JSON: {{"same_company": bool, "confidence": 0-100, "india": "yes"|"no"|"unknown", "reason": str}}""",
+              as_json=True, temperature=0)
+    return out
+
+
 def resolve_domain(c):
-    d = domain_of(c["website"])
-    if d and has_mx(d):
-        return d
-    # Hunter can map company name -> domain
+    """Collect candidates, return the first one the site itself confirms. ('' , None) if nothing passes."""
+    cands = []
+    if domain_of(c["website"]):
+        cands.append(domain_of(c["website"]))
     key = env("HUNTER_API_KEY")
     if key:
         try:
             r = requests.get("https://api.hunter.io/v2/domain-search",
                              params={"company": c["name"], "limit": 1, "api_key": key}, timeout=20).json()
-            d = (r.get("data") or {}).get("domain")
+            d = domain_of((r.get("data") or {}).get("domain") or "")
             if d:
-                return d
+                cands.append(d)
         except Exception:
             pass
-    guesses = llm(f"""Company: {c['name']} — {c['what_they_do']} ({c['location']}).
+    try:
+        guesses = llm(f"""Company: {c['name']} — {c['what_they_do']} ({c['location']}).
 List the 5 most likely website domains for this startup (e.g. name.com, name.ai, name.in, getname.com,
 tryname.com, name.io). JSON: {{"domains": [..]}}""", as_json=True, temperature=0).get("domains", [])
-    for g in guesses:
-        g = domain_of(g)
-        if g and has_mx(g) and site_mentions(g, c["name"]):
-            return g
-    return ""
+        cands += [domain_of(g) for g in guesses]
+    except Exception:
+        pass
+    seen = []
+    for d in cands:
+        d = (d or "").lower()
+        if not d or d in seen:
+            continue
+        seen.append(d)
+        if not has_mx(d):
+            continue
+        v = confirm_domain(c, d)
+        if v and v.get("same_company") and int(v.get("confidence") or 0) >= 70:
+            log(f"domain ok: {c['name']} -> {d} (india: {v.get('india')})")
+            return d, v
+        log(f"domain rejected: {c['name']} -> {d} ({(v or {}).get('reason', 'site unreachable')})")
+        if len(seen) >= 5:
+            break
+    return "", None
 
 
 def score_role(role):
     role = (role or "").lower()
-    return max([s for k, s in ROLE_PRIORITY if k in role] or [10])
+    hit = [sc for pat, sc in ROLE_PRIORITY if re.search(pat, role)]
+    if hit:
+        return max(hit)
+    return 5 if BAD_ROLES.search(role) else 10
 
 
 def hunter_people(domain):
@@ -152,6 +211,8 @@ def people_for(c, domain):
         if e not in known and any(g in local for g in GOOD_GENERIC):
             people.append({"name": "", "role": "careers inbox", "email": e, "source": "site", "confidence": 60})
     people.sort(key=lambda p: (score_role(p["role"]), p["confidence"]), reverse=True)
+    good = [p for p in people if score_role(p["role"]) > 5]
+    people = good or people
     keep, limit = [], CFG["outreach"]["max_contacts_per_company"]
     for p in people:
         if len(keep) >= limit:
@@ -168,13 +229,22 @@ def people_for(c, domain):
     return keep
 
 
+def india_location(loc):
+    return bool(re.search(r"india|bengaluru|bangalore|delhi|gurugram|gurgaon|noida|mumbai|pune|hyderabad|"
+                          r"chennai|kolkata|ahmedabad|jaipur", loc or "", re.I))
+
+
 def run(limit=10):
     con = db()
     rows = con.execute("SELECT * FROM companies WHERE status='new' ORDER BY relevance DESC LIMIT ?",
                        (limit,)).fetchall()
     n = 0
     for c in rows:
-        domain = resolve_domain(c)
+        domain, verdict = resolve_domain(c)
+        if domain and CFG["radar"].get("india_only") and (verdict or {}).get("india") == "no" \
+                and not india_location(c["location"]):
+            con.execute("UPDATE companies SET status='skipped', domain=? WHERE id=?", (domain, c["id"])); con.commit()
+            log(f"contacts: {c['name']} skipped, no India presence"); continue
         excluded = CFG["outreach"].get("exclude_domains", [])
         if domain and any(domain == x or domain.endswith("." + x) for x in excluded):
             con.execute("UPDATE companies SET status='skipped', domain=? WHERE id=?", (domain, c["id"])); con.commit()

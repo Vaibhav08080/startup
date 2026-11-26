@@ -55,6 +55,7 @@ proof_of_work:
 radar:
   lookback_days: 10
   min_relevance: 6            # 0-10 LLM score: tech-product startup that might hire SDE/backend/data
+  india_only: true            # skip startups clearly without an India office/team (unknown is kept)
   geos_preferred: [India, Bangalore, Bengaluru, Delhi, Gurugram, Noida, Mumbai, Pune, Hyderabad, Remote]
   skip_sectors: [real estate, d2c apparel, restaurant, liquor]
   feeds:

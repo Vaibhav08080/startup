@@ -28,6 +28,28 @@ def status():
     return msg
 
 
+def migrate():
+    """One-time fixes to data collected by older versions."""
+    con = db()
+    if kv_get("migr_v2") != "done":
+        # v1 had a role bug ("director" matched "cto") and unverified domains: redo contact finding
+        n = con.execute("DELETE FROM contacts WHERE state='queued'").rowcount
+        con.execute("UPDATE companies SET status='new', domain=NULL, intel=NULL "
+                    "WHERE status IN ('enriched','no_contacts') AND id NOT IN "
+                    "(SELECT company_id FROM contacts)")
+        con.execute("UPDATE companies SET status='skipped' WHERE status='new' AND ("
+                    "lower(name) IN ('undisclosed','unknown','sifted','stealth') OR "
+                    "(location IS NOT NULL AND location<>'' AND lower(location) NOT LIKE '%india%' AND "
+                    "lower(location) NOT LIKE '%bengaluru%' AND lower(location) NOT LIKE '%bangalore%' AND "
+                    "lower(location) NOT LIKE '%delhi%' AND lower(location) NOT LIKE '%mumbai%' AND "
+                    "lower(location) NOT LIKE '%gurugram%' AND lower(location) NOT LIKE '%noida%' AND "
+                    "lower(location) NOT LIKE '%pune%' AND lower(location) NOT LIKE '%hyderabad%' AND "
+                    "lower(location) NOT LIKE '%chennai%' AND lower(location) NOT LIKE '%remote%'))")
+        con.commit()
+        kv_set("migr_v2", "done")
+        log(f"migration v2: dropped {n} unverified contacts, companies re-queued for verified lookup")
+
+
 def radar_if_due(hours=6):
     last = kv_get("radar_last")
     if last and datetime.fromisoformat(last) > now_ist() - timedelta(hours=hours):
@@ -52,6 +74,7 @@ def hourly():
 
 
 if __name__ == "__main__":
+    migrate()
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     arg = sys.argv[2] if len(sys.argv) > 2 else None
     {
