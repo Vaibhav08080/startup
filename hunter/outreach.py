@@ -106,7 +106,7 @@ def critic(subject, body, facts):
     try:
         email_text = f"Subject: {subject}\n\n{body}\n\n{ME['email_signature'].strip()}"
         out = llm(CRITIC.format(email=email_text, facts=facts, proofs=proof_text()),
-                  as_json=True, temperature=0, model=env("CRITIC_MODEL", "llama-3.1-8b-instant"))
+                  as_json=True, temperature=0, model=env("CRITIC_MODEL", "openai/gpt-oss-20b"))
         return [] if out.get("ok") else [f"critic: {i}" for i in (out.get("issues") or ["not ok"])][:3]
     except Exception as e:
         log(f"critic unavailable: {e}")
