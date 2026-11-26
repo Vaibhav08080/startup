@@ -31,6 +31,7 @@ def status():
 def radar_if_due(hours=6):
     last = kv_get("radar_last")
     if last and datetime.fromisoformat(last) > now_ist() - timedelta(hours=hours):
+        radar.backlog()
         return
     radar.run()
     kv_set("radar_last", now_ist().isoformat())

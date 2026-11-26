@@ -15,7 +15,7 @@ NOISE_RE = re.compile(r"\b(ipo|layoffs?|shuts? down|acquires|acquired|weekly fun
                       r"this week|roundup|top \d+)\b", re.I)
 
 
-def article_text(url, limit=4000):
+def article_text(url, limit=2500):
     if "news.google.com" in url:
         return ""
     try:
@@ -49,12 +49,19 @@ SUMMARY: {summary}
 ARTICLE: {body}"""
 
 
-def run():
+def backlog(limit=10):
+    """Hourly: chew through leftover unprocessed articles a few at a time."""
+    con = db()
+    if con.execute("SELECT COUNT(*) FROM articles WHERE processed=0").fetchone()[0]:
+        run(max_extract=limit, fetch=False)
+
+
+def run(max_extract=30, fetch=True):
     con = db()
     rc = CFG["radar"]
     cutoff = datetime.now(timezone.utc) - timedelta(days=rc["lookback_days"])
     fresh = []
-    for feed in rc["feeds"]:
+    for feed in (rc["feeds"] if fetch else []):
         try:
             parsed = feedparser.parse(get(feed).content)
         except Exception as e:
@@ -81,7 +88,11 @@ def run():
             fresh.append((row["url"], row["title"], ""))
 
     added, fails = [], 0
-    for url, title, summary in fresh:
+    if len(fresh) > max_extract:
+        log(f"radar: processing {max_extract} of {len(fresh)} now, rest in the next runs")
+        fresh = fresh[:max_extract]
+    for n, (url, title, summary) in enumerate(fresh, 1):
+        log(f"radar [{n}/{len(fresh)}] {title[:90]}")
         try:
             d = llm(EXTRACT_PROMPT.format(
                 roles=CFG["me"]["roles_wanted"], geos=", ".join(rc["geos_preferred"]),
@@ -101,8 +112,10 @@ def run():
         con.execute("UPDATE articles SET processed=1 WHERE url=?", (url,))
         name = (d.get("company") or "").strip()
         if not d.get("is_single_company_funding") or not name:
+            log("   -> not a single-company raise, skip")
             continue
         if con.execute("SELECT 1 FROM companies WHERE name=?", (name,)).fetchone():
+            log(f"   -> {name}: already have it")
             continue  # same raise reported by multiple outlets
         rel = int(d.get("relevance") or 0)
         status = "new" if rel >= rc["min_relevance"] else "skipped"
@@ -114,6 +127,7 @@ def run():
                      d.get("what_they_do"), json.dumps(d.get("founders") or []), rel, url, title, status,
                      now_ist().isoformat()))
         con.commit()
+        log(f"   -> {name} | {d.get('round')} {d.get('amount')} | relevance {rel}/10 | {status}")
         if status == "new":
             added.append(f"• **{name}** — {d.get('round')} {d.get('amount')} | {d.get('sector')} | rel {rel}/10")
     if added:

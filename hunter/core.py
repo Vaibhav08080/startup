@@ -111,7 +111,13 @@ def llm(prompt, system="You are a precise assistant.", as_json=False, temperatur
             except Exception as e:
                 last = e; time.sleep(3 * (i + 1)); continue
             if r.status_code == 429 or r.status_code >= 500:
-                last = f"{r.status_code} {r.text[:300]}"; time.sleep(15 * (i + 1)); continue
+                wait = 15 * (i + 1)
+                try:
+                    wait = max(wait, min(90, int(float(r.headers.get("retry-after", 0))) + 1))
+                except Exception:
+                    pass
+                log(f"LLM {r.status_code} on {model}, waiting {wait}s")
+                last = f"{r.status_code} {r.text[:300]}"; time.sleep(wait); continue
             if r.status_code in (400, 404) and "model" in r.text.lower():
                 _dead_models.add(model)
                 log(f"LLM model '{model}' unusable ({r.status_code}): {r.text[:300]} -> trying next model")
