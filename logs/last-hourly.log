@@ -1,100 +1,78 @@
-[07:38:33] radar: 31 new funding-looking articles
-[07:38:33] radar: processing 30 of 86 now, rest in the next runs
-[07:38:33] radar [1/30] Lupa Robotics raises $1.67 million seed round to teach robots human dexterity - Tech In Af
-[07:38:34]    -> Lupa Robotics | seed $1.67 million | relevance 8/10 | new
-[07:38:34] radar [2/30] Lute Raises $20M to Build Touch-Based AI for Robots - The Recursive
-[07:38:35]    -> Lute | unknown $20M | relevance 8/10 | new
-[07:38:35] radar [3/30] AI Media Startup Every Raises $17.5M Series A at $110M Valuation - Wowtale
-[07:38:37]    -> Every | Series A $17.5M | relevance 7/10 | new
-[07:38:37] radar [4/30] Pai Defence Raises $5M in Pre-Seed Funding - FinSMEs
-[07:38:38]    -> Pai Defence | Pre-Seed $5M | relevance 5/10 | skipped
-[07:38:38] radar [5/30] Saudi «Mawj» Raises Series A Funding to Strengthen Its Presence in the AI Customer Service
-[07:38:39]    -> Mawj: already have it
-[07:38:39] radar [6/30] Dubai’s Sooner Raises $20M To Expand Homebuyer Financing Platform - Forbes Middle East
-[07:38:40]    -> Sooner |  $20M | relevance 5/10 | skipped
-[07:38:40] radar [7/30] Munich Fusion Startup Starforge Raises €6.6M Pre-Seed to Mass-Produce Reactors in Factorie
-[07:38:41]    -> Starforge | Pre-Seed €6.6M | relevance 4/10 | skipped
-[07:38:41] radar [8/30] Matters.AI raises ₹115 crore pre-series A funding led by Tanglin Venture Partners - ET Ent
-[07:38:43]    -> Matters.AI: already have it
-[07:38:43] radar [9/30] Funding Wrap: Dreamteam, Style Union, Cyient Semiconductors raise fresh capital - ET Entre
-[07:38:44]    -> not a single-company raise, skip
-[07:38:44] radar [10/30] Matters.AI Raises $12 Million Pre-Series A to Boost Data Security Platform & US Expansion 
-[07:38:45]    -> Matters.AI: already have it
-[07:38:45] radar [11/30] SatSure targets ₹200 cr in Series B to expand satellite and AI capabilities - Business Sta
-[07:38:46]    -> SatSure: already have it
-[07:38:46] radar [12/30] Aeravti Ventures launches ₹300 cr second fund, secures 50% at first close - Business Stand
-[07:38:46] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:39:02]    -> not a single-company raise, skip
-[07:39:02] radar [13/30] Jet engine startup Green Aero raises $14 million led by Crane Ventures to build combat dro
-[07:39:03]    -> Green Aero: already have it
-[07:39:03] radar [14/30] SatSure Raises $7 Million from Antariksh Venture Capital Fund to Expand Satellite Technolo
-[07:39:04]    -> SatSure: already have it
-[07:39:04] radar [15/30] Former Alibaba exec's AI powered startup Everful bags funding to connect retailers with Ch
-[07:39:04] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:39:21]    -> Everful | unknown unknown | relevance 6/10 | skipped
-[07:39:21] radar [16/30] {Funding Alert} Orthopaedic Healthcare Startup OSSO Raises Rs 2.5 Cr - Indian Retailer
-[07:39:22]    -> OSSO: already have it
-[07:39:22] radar [17/30] GIVA Raises ₹90 Crore from BlackSoil to Support Retail Expansion - Indian Startup Times
-[07:39:23]    -> GIVA: already have it
-[07:39:23] radar [18/30] AI Funding News November 20 2026: DeepSeek Leads $15.07B Across Six Rounds - AI Funding Tr
-[07:39:25]    -> DeepSeek | multiple $15.07B | relevance 9/10 | new
-[07:39:25] radar [19/30] Spacetech startup SatSure raises $7 million from sovereign space fund - The Economic Times
-[07:39:25] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:39:41]    -> SatSure: already have it
-[07:39:41] radar [20/30] Factory robots maker Botsync raises $11 million, plans US go-to-market and bigger India te
-[07:39:42]    -> Botsync | None $11 million | relevance 5/10 | skipped
-[07:39:42] radar [21/30] Lender to kirana owners and dairy farmers, InPrime Finserv raises Rs 101 crore from FMO, Z
-[07:39:43]    -> InPrime Finserv | Funding round Rs 101 crore | relevance 8/10 | new
-[07:39:43] radar [22/30] India’s AI rules take shape; Euler Motors eyes fresh funding - The Economic Times
-[07:39:44] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:39:59]    -> not a single-company raise, skip
-[07:39:59] radar [23/30] InPrime Finserv Raises Rs 101 Crore in Series B Funding - Siliconindia
-[07:40:01]    -> InPrime Finserv: already have it
-[07:40:01] radar [24/30] Prosus, Vertex Ventures co-lead $10 million funding in Vegapay as banks expand credit on U
-[07:40:02]    -> Vegapay: already have it
-[07:40:02] radar [25/30] Dhan parent Raise to invest Rs 100 crore in charting platform, eyes integrations with riva
-[07:40:04]    -> Charting platform (unnamed) | Strategic investment Rs 100 crore | relevance 7/10 | new
-[07:40:04] radar [26/30] Telangana Tech 9M 2026 Report: CtrlS, Skyroot Drive $726M Funding Surge as Seed Deals Decl
-[07:40:04] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:40:20]    -> not a single-company raise, skip
-[07:40:20] radar [27/30] PayU India posts $12 million adjusted Ebitda profit in H1 as credit business scales - The 
-[07:40:21]    -> not a single-company raise, skip
-[07:40:21] radar [28/30] August AI Raises $12 Mn From Accel And Peak XV - Bharat Fast
-[07:40:23]    -> August AI | Series A $12 Mn | relevance 8/10 | new
-[07:40:23] radar [29/30] Unsiloed AI Raises $7.5 Mn Led By Felicis To Make Documents Computable - Bharat Fast
-[07:40:23] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:40:39]    -> Unsiloed AI | Funding round $7.5 Mn | relevance 7/10 | new
-[07:40:39] radar [30/30] Dreamteam Raises $53 Mn For AI-Native CRM - Bharat Fast
-[07:40:40]    -> Dreamteam |  $53 Mn | relevance 8/10 | new
-[07:40:40] radar: 9 relevant companies added
-[07:40:42] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:40:58] domain ok: DeepSeek -> deepseek.com (india: no)
-[07:40:58] contacts: DeepSeek skipped, no India presence
-[07:40:59] domain ok: Lupa Robotics -> luparobotics.com (india: unknown)
-[07:41:01] contacts: Lupa Robotics (luparobotics.com) -> []
-[07:41:14] domain rejected: Lute -> lute.com (site unreachable)
-[07:41:15] domain ok: Lute -> lute.io (india: unknown)
-[07:41:18] contacts: Lute (lute.io) -> []
-[07:41:20] domain ok: InPrime Finserv -> inprime.in (india: yes)
-[07:41:21] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:41:38] contacts: InPrime Finserv (inprime.in) -> []
-[07:41:46] domain rejected: August AI -> augustai.com (site unreachable)
-[07:41:47] domain ok: August AI -> getaugust.ai (india: no)
-[07:41:47] contacts: August AI skipped, no India presence
-[07:41:49] domain rejected: Dreamteam -> dreamteam.com (The site is a domain‑sale listing for DreamTeam.com with no mention of an AI‑native CRM product, team, or company details, whereas the news article describes a SaaS startup. No Indian office, .in domain, INR pricing, or India‑focused information appears on the site.)
-[07:41:50] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:42:06] domain ok: Dreamteam -> dreamteam.ai (india: unknown)
-[07:42:10] contacts: Dreamteam (dreamteam.ai) -> []
-[07:42:11] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:42:28] domain rejected: Every -> every.com (The news describes Every as an AI media startup, while the website is for The EVERY Company (formerly Clara Foods) that produces animal‑free egg protein, a food‑tech/biotech business. The domains, branding, and sector differ, indicating they are different entities. The site contains no mention of India, Indian offices, .in domain, or India‑focused content.)
-[07:42:29] domain rejected: Every -> every.ai (The news article describes Every as an AI media startup, while the website every.ai markets an AI-powered CRM for businesses, a different product category. The branding and focus do not align, indicating they are separate entities. The site contains no references to India (no .in domain, no Indian office or pricing), so there is no evidence of an Indian presence.)
-[07:42:29] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:42:45] domain rejected: Every -> every.io (The news describes Every as an AI media startup, while the website every.io markets itself as an AI-native finance and HR platform for startups, focusing on banking, payroll, bookkeeping, etc. The product focus and branding differ, indicating they are separate entities. The site contains no indication of Indian operations, pricing, .in domain, or India‑focused customers.)
-[07:42:46] domain rejected: Every -> getevery.com (The website getevery.com lacks any title, description, or visible content to verify its identity. Without such information we cannot confirm it is the AI media startup 'Every' mentioned in the news, resulting in low confidence. No details about Indian offices, pricing, domain suffix, or India-focused customers are present, so the India presence is unknown.)
-[07:42:46] contacts: no domain for Every
-[07:42:47] domain rejected: Charting platform (unnamed) -> chartify.com (site unreachable)
-[07:42:47] contacts: no domain for Charting platform (unnamed)
-[07:42:49] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[07:43:04] domain ok: Unsiloed AI -> unsiloed.ai (india: no)
-[07:43:04] contacts: Unsiloed AI skipped, no India presence
-[07:43:04] outreach: outside send window
+[17:32:15] radar: 9 new funding-looking articles
+[17:32:15] radar: processing 30 of 65 now, rest in the next runs
+[17:32:15] radar [1/30] Funding Wrap: Matters.AI, Vegapay, Green Aero raise fresh capital - ET Entrepreneur
+[17:32:15]    -> not a single-company raise, skip
+[17:32:15] radar [2/30] Egypt’s Chipverse Raises Pre-Seed Funding To Expand AI Infrastructure - WeeTracker
+[17:32:17]    -> Chipverse: already have it
+[17:32:17] radar [3/30] Dubai’s Sooner Raises $20M To Expand Homebuyer Financing Platform - Forbes Middle East
+[17:32:18]    -> Sooner: already have it
+[17:32:18] radar [4/30] Barcelona-based Permut raises €3 million seed round to expand into new European markets - 
+[17:32:19]    -> Permut: already have it
+[17:32:19] radar [5/30] INVE Raises $300K Pre-Seed for Saudi Event Tech [2026] - shattered.io
+[17:32:20]    -> INVE | Pre-Seed $300K | relevance 3/10 | skipped
+[17:32:20] radar [6/30] Saudi AI startup 009 raises $1.4 million in pre-seed round - My Startup World
+[17:32:21]    -> 009: already have it
+[17:32:21] radar [7/30] Sooner raises $20 million in seed round - My Startup World
+[17:32:23]    -> Sooner: already have it
+[17:32:23] radar [8/30] Kabeer Biswas’ M Raises $9 Mn Led By RTP Global
+[17:32:26]    -> M | Series A $9 Mn | relevance 9/10 | new
+[17:32:26] radar [9/30] Norwest Sells ₹262 Cr Stake In Amagi Through Block Deal
+[17:32:30]    -> not a single-company raise, skip
+[17:32:30] radar [10/30] Vidyakul Raises Rs 10 Cr Debt From Dell Foundation - Bharat Fast
+[17:32:30] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:32:47]    -> Vidyakul | Debt Rs 10 Cr | relevance 8/10 | new
+[17:32:47] radar [11/30] XEBO.ai bags $10.5M funding from Emirates Growth Fund
+[17:32:49]    -> XEBO.ai: already have it
+[17:32:49] radar [12/30] Green Aero raises $14M as India pushes for indigenous jet propulsion
+[17:32:49] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:33:06]    -> Green Aero: already have it
+[17:33:06] radar [13/30] Finnable raises Rs 405 Cr in Series C to expand multi-product lending
+[17:33:08]    -> Finnable | Series C Rs 405 crore | relevance 8/10 | new
+[17:33:08] radar [14/30] Priyank Kharge targets Mangaluru with Rs 6,000 Cr regional growth push
+[17:33:08] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:33:24]    -> not a single-company raise, skip
+[17:33:24] radar [15/30] Foxconn India Unit Faces Insolvency Plea Over ₹143 Cr In Alleged Dues
+[17:33:26] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:33:43]    -> not a single-company raise, skip
+[17:33:43] radar [16/30] Lok Capital Announces First Close Of Fund V At $130 Mn
+[17:33:47]    -> not a single-company raise, skip
+[17:33:47] radar [17/30] Vegapay Bags $10 Mn To Scale Credit Line On UPI Infrastructure
+[17:33:48] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:34:05]    -> Vegapay: already have it
+[17:34:05] radar [18/30] Green Aero Raises $14 Mn To Build Jet Engines, Combat Drones
+[17:34:06] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:34:24]    -> Green Aero: already have it
+[17:34:24] radar [19/30] XEBO.ai Bags $10.5 Mn To Expand Its Customer Experience Platform
+[17:34:28]    -> XEBO.ai: already have it
+[17:34:28] radar [20/30] Exclusive: Electronics Manufacturing Startup Elecbits To Raise Up To $15 Mn From Xponentia
+[17:34:29] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:34:46]    -> Elecbits | Funding round $12-15 Mn | relevance 7/10 | new
+[17:34:46] radar [21/30] Finnable Nets ₹405 Cr To Scale Digital Lending Business
+[17:34:50]    -> Finnable: already have it
+[17:34:50] radar [22/30] Ex-Nazara CEO Manish Agarwal's Humyn Labs raises $47 million to record human work for robo
+[17:34:50] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:35:08]    -> Humyn Labs | unknown $47 million | relevance 8/10 | new
+[17:35:08] radar [23/30] Disseqt AI Raises $8 Million in Pre-Series A Funding Led by Gresham House Ventures - Silic
+[17:35:09]    -> Disseqt AI | Pre-Series A $8 Million | relevance 8/10 | new
+[17:35:09] radar [24/30] IIT-BHU alumnus Anuruddh Mishra's August AI raises $12 million to take on US healthcare pa
+[17:35:11]    -> August AI: already have it
+[17:35:11] radar [25/30] Bengaluru cybersecurity startup Matters.AI raises Rs 115 crore as AI agents start moving e
+[17:35:13]    -> Matters.AI: already have it
+[17:35:13] radar [26/30] IIT Kharagpur batchmates' Unsiloed AI raises $7.5 million led by Felicis - Indian Startup 
+[17:35:13] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:35:31]    -> Unsiloed AI: already have it
+[17:35:31] radar [27/30] Rahul Dravid-backed Disseqt AI raises $8 million led by Gresham House - Indian Startup New
+[17:35:33]    -> Disseqt AI: already have it
+[17:35:33] radar [28/30] Cosine Robots Raises Rs 22.36 Cr to Expand Actuator Manufacturing and R&D - https://ascend
+[17:35:34]    -> Cosine Robots |  Rs 22.36 Cr | relevance 7/10 | new
+[17:35:34] radar [29/30] Disseqt AI raises $8 million, plans India hiring - TechGig
+[17:35:36]    -> Disseqt AI: already have it
+[17:35:36] radar [30/30] Bengaluru-Based Humyn Labs Raises $47 Million in Funding Led by Accel and Prosus - Indian 
+[17:35:36] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[17:35:52]    -> Humyn Labs: already have it
+[17:35:52] radar: 7 relevant companies added
+[17:35:57] radar crashed: database is locked
+[17:35:59] domain rejected: M -> m.ai (The m.ai website is a domain-for-sale page with no information about a startup, its team, location, or services. It lacks any reference to Bengaluru, India, or Indian operations, indicating it is not the same company mentioned in the news.)
+[17:36:00] domain rejected: M -> trym.com (site unreachable)
+[17:36:05] contacts crashed: database is locked
+[17:36:10] outreach crashed: database is locked
