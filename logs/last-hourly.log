@@ -1,78 +1,99 @@
-[17:32:15] radar: 9 new funding-looking articles
-[17:32:15] radar: processing 30 of 65 now, rest in the next runs
-[17:32:15] radar [1/30] Funding Wrap: Matters.AI, Vegapay, Green Aero raise fresh capital - ET Entrepreneur
-[17:32:15]    -> not a single-company raise, skip
-[17:32:15] radar [2/30] Egypt’s Chipverse Raises Pre-Seed Funding To Expand AI Infrastructure - WeeTracker
-[17:32:17]    -> Chipverse: already have it
-[17:32:17] radar [3/30] Dubai’s Sooner Raises $20M To Expand Homebuyer Financing Platform - Forbes Middle East
-[17:32:18]    -> Sooner: already have it
-[17:32:18] radar [4/30] Barcelona-based Permut raises €3 million seed round to expand into new European markets - 
-[17:32:19]    -> Permut: already have it
-[17:32:19] radar [5/30] INVE Raises $300K Pre-Seed for Saudi Event Tech [2026] - shattered.io
-[17:32:20]    -> INVE | Pre-Seed $300K | relevance 3/10 | skipped
-[17:32:20] radar [6/30] Saudi AI startup 009 raises $1.4 million in pre-seed round - My Startup World
-[17:32:21]    -> 009: already have it
-[17:32:21] radar [7/30] Sooner raises $20 million in seed round - My Startup World
-[17:32:23]    -> Sooner: already have it
-[17:32:23] radar [8/30] Kabeer Biswas’ M Raises $9 Mn Led By RTP Global
-[17:32:26]    -> M | Series A $9 Mn | relevance 9/10 | new
-[17:32:26] radar [9/30] Norwest Sells ₹262 Cr Stake In Amagi Through Block Deal
-[17:32:30]    -> not a single-company raise, skip
-[17:32:30] radar [10/30] Vidyakul Raises Rs 10 Cr Debt From Dell Foundation - Bharat Fast
-[17:32:30] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:32:47]    -> Vidyakul | Debt Rs 10 Cr | relevance 8/10 | new
-[17:32:47] radar [11/30] XEBO.ai bags $10.5M funding from Emirates Growth Fund
-[17:32:49]    -> XEBO.ai: already have it
-[17:32:49] radar [12/30] Green Aero raises $14M as India pushes for indigenous jet propulsion
-[17:32:49] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:33:06]    -> Green Aero: already have it
-[17:33:06] radar [13/30] Finnable raises Rs 405 Cr in Series C to expand multi-product lending
-[17:33:08]    -> Finnable | Series C Rs 405 crore | relevance 8/10 | new
-[17:33:08] radar [14/30] Priyank Kharge targets Mangaluru with Rs 6,000 Cr regional growth push
-[17:33:08] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:33:24]    -> not a single-company raise, skip
-[17:33:24] radar [15/30] Foxconn India Unit Faces Insolvency Plea Over ₹143 Cr In Alleged Dues
-[17:33:26] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:33:43]    -> not a single-company raise, skip
-[17:33:43] radar [16/30] Lok Capital Announces First Close Of Fund V At $130 Mn
-[17:33:47]    -> not a single-company raise, skip
-[17:33:47] radar [17/30] Vegapay Bags $10 Mn To Scale Credit Line On UPI Infrastructure
-[17:33:48] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:34:05]    -> Vegapay: already have it
-[17:34:05] radar [18/30] Green Aero Raises $14 Mn To Build Jet Engines, Combat Drones
-[17:34:06] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:34:24]    -> Green Aero: already have it
-[17:34:24] radar [19/30] XEBO.ai Bags $10.5 Mn To Expand Its Customer Experience Platform
-[17:34:28]    -> XEBO.ai: already have it
-[17:34:28] radar [20/30] Exclusive: Electronics Manufacturing Startup Elecbits To Raise Up To $15 Mn From Xponentia
-[17:34:29] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:34:46]    -> Elecbits | Funding round $12-15 Mn | relevance 7/10 | new
-[17:34:46] radar [21/30] Finnable Nets ₹405 Cr To Scale Digital Lending Business
-[17:34:50]    -> Finnable: already have it
-[17:34:50] radar [22/30] Ex-Nazara CEO Manish Agarwal's Humyn Labs raises $47 million to record human work for robo
-[17:34:50] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:35:08]    -> Humyn Labs | unknown $47 million | relevance 8/10 | new
-[17:35:08] radar [23/30] Disseqt AI Raises $8 Million in Pre-Series A Funding Led by Gresham House Ventures - Silic
-[17:35:09]    -> Disseqt AI | Pre-Series A $8 Million | relevance 8/10 | new
-[17:35:09] radar [24/30] IIT-BHU alumnus Anuruddh Mishra's August AI raises $12 million to take on US healthcare pa
-[17:35:11]    -> August AI: already have it
-[17:35:11] radar [25/30] Bengaluru cybersecurity startup Matters.AI raises Rs 115 crore as AI agents start moving e
-[17:35:13]    -> Matters.AI: already have it
-[17:35:13] radar [26/30] IIT Kharagpur batchmates' Unsiloed AI raises $7.5 million led by Felicis - Indian Startup 
-[17:35:13] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:35:31]    -> Unsiloed AI: already have it
-[17:35:31] radar [27/30] Rahul Dravid-backed Disseqt AI raises $8 million led by Gresham House - Indian Startup New
-[17:35:33]    -> Disseqt AI: already have it
-[17:35:33] radar [28/30] Cosine Robots Raises Rs 22.36 Cr to Expand Actuator Manufacturing and R&D - https://ascend
-[17:35:34]    -> Cosine Robots |  Rs 22.36 Cr | relevance 7/10 | new
-[17:35:34] radar [29/30] Disseqt AI raises $8 million, plans India hiring - TechGig
-[17:35:36]    -> Disseqt AI: already have it
-[17:35:36] radar [30/30] Bengaluru-Based Humyn Labs Raises $47 Million in Funding Led by Accel and Prosus - Indian 
-[17:35:36] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[17:35:52]    -> Humyn Labs: already have it
-[17:35:52] radar: 7 relevant companies added
-[17:35:57] radar crashed: database is locked
-[17:35:59] domain rejected: M -> m.ai (The m.ai website is a domain-for-sale page with no information about a startup, its team, location, or services. It lacks any reference to Bengaluru, India, or Indian operations, indicating it is not the same company mentioned in the news.)
-[17:36:00] domain rejected: M -> trym.com (site unreachable)
-[17:36:05] contacts crashed: database is locked
-[17:36:10] outreach crashed: database is locked
+[02:36:19] radar: 9 new funding-looking articles
+[02:36:19] radar: processing 30 of 46 now, rest in the next runs
+[02:36:19] radar [1/30] Nextesy, Swiss AI Startup with Balkan Roots, Raises €9M Seed Led by Swisscom Ventures - Th
+[02:36:21]    -> Nextesy | Seed €9M | relevance 8/10 | skipped
+[02:36:21] radar [2/30] UK Plant-Based Protein Water Startup Nowhey Bags Pre-Seed Funding for Expansion - Green Qu
+[02:36:22]    -> Nowhey | Pre-Seed None | relevance 1/10 | skipped
+[02:36:22] radar [3/30] Synature raises $6.01M seed to turn animal sounds into biodiversity data - Dealroom
+[02:36:23]    -> Synature | seed $6.01M | relevance 7/10 | new
+[02:36:23] radar [4/30] Nigerian Cybersecurity Startup Aeon Raises Pre-Seed Funding to $2 Million with New Investm
+[02:36:24]    -> Aeon: already have it
+[02:36:24] radar [5/30] NewDoc raises $2M Seed to build telehealth GP service - Dealroom
+[02:36:25]    -> NewDoc | Seed $2M | relevance 7/10 | new
+[02:36:25] radar [6/30] Lakshya SmartGuard Systems Raises ₹2.5 Crore in Seed Funding - TechGraph
+[02:36:26]    -> Lakshya SmartGuard Systems | Seed ₹2.5 Crore | relevance 7/10 | new
+[02:36:26] radar [7/30] Connect Money raises USD 3.5 mn pre-Series A to expand into Saudi Arabia and Morocco. - En
+[02:36:28]    -> Connect Money | pre-Series A USD 3.5 million | relevance 4/10 | skipped
+[02:36:28] radar [8/30] Arva AI Raises $20M Series A to Automate Financial Crime Compliance at Banks - Wowtale
+[02:36:29]    -> Arva AI | Series A $20M | relevance 8/10 | new
+[02:36:29] radar [9/30] Thorium Reactor Startup SUK-M Raises Pre-Seed Funding Led by Speciale Invest - Siliconindi
+[02:36:30]    -> SUK-M: already have it
+[02:36:30] radar [10/30] Disseqt AI raises $8 million, plans India hiring - TechGig
+[02:36:31]    -> Disseqt AI: already have it
+[02:36:31] radar [11/30] Bengaluru-Based Humyn Labs Raises $47 Million in Funding Led by Accel and Prosus - Indian 
+[02:36:32]    -> Humyn Labs: already have it
+[02:36:32] radar [12/30] Humyn Labs raises $47 million for robot training data infrastructure - TechGig
+[02:36:33]    -> Humyn Labs: already have it
+[02:36:33] radar [13/30] Cosine Robots Raises Rs 22.36 Crore to Build Robotic Actuators in India - CIOL
+[02:36:33] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:36:50]    -> Cosine Robots: already have it
+[02:36:50] radar [14/30] Ionic Wealth Raises ₹1,770 Crore in Strategic Funding from Angel One and Business Families
+[02:36:51]    -> Ionic Wealth | Strategic Funding ₹1,770 Crore | relevance 9/10 | new
+[02:36:51] radar [15/30] JohnAIC raises $1.9 million for on-premise AI server expansion - TechGig
+[02:36:52] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:37:08]    -> JohnAIC | seed $1.9 million | relevance 8/10 | new
+[02:37:08] radar [16/30] Matters.AI Raises ₹115 Cr in Pre-Series A Round - shattered.io
+[02:37:09]    -> Matters.AI: already have it
+[02:37:09] radar [17/30] Soket AI Raises $4 Million From Bajaj Finance and Pennant Technologies - CIOL
+[02:37:11]    -> Soket AI |  $4 Million | relevance 7/10 | new
+[02:37:11] radar [18/30] Cosine Robots raises ₹22.36 crore to manufacture robotic joints in India - Business Standa
+[02:37:12]    -> Cosine Robots: already have it
+[02:37:12] radar [19/30] Matters AI Raises Approx. $12M in Funding - FinSMEs
+[02:37:12] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:37:29]    -> Matters AI: already have it
+[02:37:29] radar [20/30] Indian data security startup Matters.AI raises $12m - Tech in Asia
+[02:37:30]    -> Matters.AI: already have it
+[02:37:30] radar [21/30] Matters.AI raises ₹115 crore to expand data security R&D, sales - TechGig
+[02:37:31]    -> Matters.AI: already have it
+[02:37:31] radar [22/30] DLI-backed C2i Semiconductors raises $15 million from Peak XV, marking largest funding rou
+[02:37:31] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:37:47]    -> C2i Semiconductors | Funding round $15 million | relevance 8/10 | new
+[02:37:47] radar [23/30] Ex-Infosys Exec's Enterprise AI Startup Bags $32 Mn for Agentic Deployment - Analytics Ind
+[02:37:49]    -> not a single-company raise, skip
+[02:37:49] radar [24/30] Disseqt AI Raises $8 Mn Led By Gresham House Ventures; Rahul Dravid Among Angel Investors 
+[02:37:51]    -> Disseqt AI: already have it
+[02:37:51] radar [25/30] AI Startup Disseqt AI Raises $8 Mn To Scale International Operations - Inc42
+[02:37:51] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:38:07]    -> Disseqt AI: already have it
+[02:38:07] radar [26/30] AidenAI Raises $32 Million in Series A Round - Wisevoter
+[02:38:08]    -> AidenAI: already have it
+[02:38:08] radar [27/30] Lawvek raises $550,000 pre-seed funding to help enterprises recover money vendors owe - In
+[02:38:09]    -> Lawvek | pre-seed $550,000 | relevance 8/10 | new
+[02:38:09] radar [28/30] Nigeria’s Aeon doubles pre-seed to US$2m to build cyber defence for the Global South - Tec
+[02:38:10] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:38:26]    -> Aeon: already have it
+[02:38:26] radar [29/30] How to prepare your startup for a Series A raise in 2026 - Techli
+[02:38:27]    -> not a single-company raise, skip
+[02:38:27] radar [30/30] Marlowe raises a $277 million seed round led by Accel to run AI inference on non-Nvidia ch
+[02:38:28]    -> Marlowe | seed $277 million | relevance 8/10 | new
+[02:38:28] radar: 10 relevant companies added
+[02:38:30] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:38:46] domain rejected: M -> m.ai (The website m.ai is a domain-for-sale page with no company information, product details, or references to a Bangalore/India presence. It does not match the AI startup described in the news, which is an operating company based in Bengaluru.)
+[02:38:46] domain rejected: M -> trym.com (site unreachable)
+[02:38:46] contacts: no domain for M
+[02:38:47] contacts: no domain for Ionic Wealth
+[02:38:51] domain ok: Vidyakul -> vidyakul.com (india: yes)
+[02:39:16] contacts: Vidyakul (vidyakul.com) -> []
+[02:39:18] domain ok: Finnable -> finnable.com (india: yes)
+[02:39:33] contacts: Finnable (finnable.com) -> ['amit@finnable.com']
+[02:39:34] domain rejected: Humyn Labs -> humynlabs.com (site unreachable)
+[02:39:37] domain ok: Humyn Labs -> humynlabs.ai (india: unknown)
+[02:39:44] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:40:01] contacts: Humyn Labs (humynlabs.ai) -> ['manish@humynlabs.ai']
+[02:40:02] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:40:19] domain ok: Disseqt AI -> disseqt.ai (india: no)
+[02:40:19] contacts: Disseqt AI skipped, no India presence
+[02:40:21] domain ok: Arva AI -> arva.ai (india: no)
+[02:40:21] contacts: Arva AI skipped, no India presence
+[02:40:23] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:40:39] domain ok: JohnAIC -> johnaic.com (india: no)
+[02:40:39] contacts: JohnAIC skipped, no India presence
+[02:40:44] domain rejected: C2i Semiconductors -> c2i.com (The website c2i.com focuses on carbon-fibre engineering and lightweight manufacturing, with no mention of semiconductor design or manufacturing, and lacks any India-specific information (no .in domain, no Indian office or team details). This does not align with the news about C2i Semiconductors, an Indian chip startup.)
+[02:40:44] domain rejected: C2i Semiconductors -> c2i.io (site unreachable)
+[02:40:45] domain rejected: C2i Semiconductors -> c2i.tech (site unreachable)
+[02:40:46] contacts: no domain for C2i Semiconductors
+[02:40:48] domain rejected: Lawvek -> lawvek.com (No website content (title, description, text) was provided, so there is no evidence to confirm that lawvek.com corresponds to the fintech startup described in the news or shows any Indian presence.)
+[02:40:48] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[02:41:04] domain ok: Lawvek -> lawvek.ai (india: unknown)
+[02:41:08] contacts: Lawvek (lawvek.ai) -> []
+[02:41:08] outreach: outside send window
