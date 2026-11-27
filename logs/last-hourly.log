@@ -1,96 +1,100 @@
-[00:27:52] radar: 27 new funding-looking articles
-[00:27:52] radar: processing 30 of 85 now, rest in the next runs
-[00:27:52] radar [1/30] Saudi AI startup Mawj raises Series A as customer-service competition grows - FWDStart
-[00:27:53]    -> Mawj | Series A  | relevance 8/10 | new
-[00:27:53] radar [2/30] BioNTech founders in talks to raise $1B for mRNA cancer startup Arife - European Biotechno
-[00:27:54]    -> Arife | raise $1B | relevance 5/10 | skipped
-[00:27:54] radar [3/30] SA’s Community Wolf raises seed funding round led by Terra Industries - - Disrupt Africa
-[00:27:55]    -> Community Wolf | seed  | relevance 5/10 | skipped
-[00:27:55] radar [4/30] Telehealth startup scores $2 million Seed round - Startup Daily
-[00:27:56]    -> not a single-company raise, skip
-[00:27:56] radar [5/30] XEBO.ai Raises $10.5 Million in Series A Funding to Expand AI-Powered Customer Experience 
-[00:27:57]    -> XEBO.ai | Series A $10.5 Million | relevance 8/10 | new
-[00:27:57] radar [6/30] Formal verification startup Sequent raises $2.2 million pre-seed co-led by Metaplanet and 
-[00:27:58]    -> Sequent | pre-seed $2.2 million | relevance 8/10 | new
-[00:27:58] radar [7/30] Saudi AI Startup 009 Raises $1.4M to Build Enterprise AI Agents - entARABI
-[00:27:59]    -> 009: already have it
-[00:27:59] radar [8/30] Green Aero Raises $14 Million in Series A Funding to Advance Indigenous Jet Engine Technol
-[00:28:00]    -> Green Aero | Series A $14 Million | relevance 8/10 | new
-[00:28:00] radar [9/30] Barcelona-based Permut raises €3 million seed round to expand into new European markets - 
-[00:28:02]    -> Permut | seed €3 million | relevance 6/10 | skipped
-[00:28:02] radar [10/30] Munich's fintavo raises pre-seed to finance veterinary care - Dealroom
-[00:28:03]    -> fintavo | pre-seed None | relevance 6/10 | skipped
-[00:28:03] radar [11/30] invoiceQ raises $5 million in Series A funding to expand across 8 Arab markets - entARABI
-[00:28:04]    -> invoiceQ | Series A $5 million | relevance 5/10 | skipped
-[00:28:04] radar [12/30] Green Aero raises $14 million to develop jet engines and combat drones - Business Standard
-[00:28:05]    -> Green Aero: already have it
-[00:28:05] radar [13/30] Agon Raises $70M Series A at $450M Valuation to Train Autonomous Defence Systems in a Synt
-[00:28:05] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:28:21]    -> Agon: already have it
-[00:28:21] radar [14/30] Mawj raises Series A for AI customer service in Saudi and Gulf dialects - Superpower Daily
-[00:28:25]    -> Mawj: already have it
-[00:28:25] radar [15/30] Saudi AI startup Mawj raises a Series A for customer service - Tbreak UAE
-[00:28:26]    -> Mawj: already have it
-[00:28:26] radar [16/30] Warsaw Water-Monitoring Start-Up Raises €5.75 Million - Wisevoter
-[00:28:27]    -> Warsaw Water-Monitoring Start-Up | None €5.75 Million | relevance 5/10 | skipped
-[00:28:27] radar [17/30] IKKB Raises $3M Seed Round Led by Canary - Wisevoter
-[00:28:27] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:28:43]    -> IKKB | Seed $3M | relevance 5/10 | skipped
-[00:28:43] radar [18/30] Indian space startup SatSure raises ₹60 crore from govt-backed space fund - Business Stand
-[00:28:45]    -> SatSure | Government-backed space fund ₹60 crore | relevance 8/10 | new
-[00:28:45] radar [19/30] India’s protein ecosystem raises $46 million in 2026 so far, Gurugram leads funding - Fort
-[00:28:45]    -> not a single-company raise, skip
-[00:28:45] radar [20/30] Ex-Infosys veteran’s enterprise AI startup Aiden raises $32 million from A91 Partners - Th
-[00:28:46] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:29:03]    -> Aiden | unknown $32 million | relevance 8/10 | new
-[00:29:03] radar [21/30] Data security startup Matters AI raises Rs 115 crore from Tanglin Venture Partners, others
-[00:29:04]    -> Matters AI | None Rs 115 crore | relevance 8/10 | new
-[00:29:04] radar [22/30] Indian Startup Funding Surges 515% to $62.4 Million During November 13-19 as Humyn Labs, B
-[00:29:06]    -> not a single-company raise, skip
-[00:29:06] radar [23/30] Jet engine startup Green Aero raises $14 million led by Crane Ventures to build combat dro
-[00:29:07]    -> Green Aero: already have it
-[00:29:07] radar [24/30] GEF Capital Partners Announces First Close Of India Climate Fund IV At $615 Mn
-[00:29:08] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:29:25]    -> GEF Capital Partners | First close of Fund IV $615 Mn | relevance 2/10 | skipped
-[00:29:25] radar [25/30] IndiaAI Mission-Backed Chariot AI Unveils 11 Bn Parameter LLM, Speech Models
-[00:29:28]    -> not a single-company raise, skip
-[00:29:28] radar [26/30] Capri Global raises $30M in bonds from BlueOrchard Microfinance
-[00:29:28] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:29:45]    -> Capri Global Capital Limited | bond $30M | relevance 4/10 | skipped
-[00:29:45] radar [27/30] Vegapay raises $10M in Series A round co-led by Vertex Ventures, Prosus
-[00:29:47]    -> Vegapay: already have it
-[00:29:47] radar [28/30] Spend management platform Payhawk announces $280M raise, 2B valuation
-[00:29:47] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:30:03]    -> Payhawk | Series C $280M | relevance 8/10 | new
-[00:30:03] radar [29/30] Rodic Consultants proposes Rs 200 Cr fund for AI in infrastructure
-[00:30:06]    -> not a single-company raise, skip
-[00:30:06] radar [30/30] GIVA raises Rs 90 Cr from alternative credit platform BlackSoil
-[00:30:07] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:30:24]    -> GIVA | debt Rs 90 crore | relevance 3/10 | skipped
-[00:30:24] radar: 8 relevant companies added
-[00:30:26] domain rejected: Mawj -> mawj.com (site unreachable)
-[00:30:26] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:30:42] domain ok: Mawj -> mawj.ai (india: no)
-[00:30:42] contacts: Mawj skipped, no India presence
-[00:30:43] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:30:59] domain ok: XEBO.ai -> xebo.ai (india: yes)
-[00:31:07] contacts: XEBO.ai (xebo.ai) -> []
-[00:31:08] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:31:24] domain rejected: Sequent -> sequent.com (The news describes Sequent as a formal verification startup focused on software/hardware correctness, while the website sequent.com promotes physical-world digitization, autonomous factories, manufacturing, recycling, and AI services—topics unrelated to formal verification. No mention of India, Indian offices, .in domain, or India‑focused content is present.)
-[00:31:24] domain rejected: Sequent -> sequent.ai (site unreachable)
-[00:31:24] contacts: no domain for Sequent
-[00:31:28] domain ok: Green Aero -> greenaero.in (india: yes)
-[00:31:56] contacts: Green Aero (greenaero.in) -> []
-[00:31:58] domain rejected: SatSure -> satsure.com (site unreachable)
-[00:31:59] domain rejected: SatSure -> satsure.in (site unreachable)
-[00:31:59] contacts: no domain for SatSure
-[00:32:02] domain rejected: Aiden -> aiden.com (The news refers to an enterprise AI startup founded by an ex‑Infosys veteran, while the aiden.com site belongs to a Japanese corporation (株式会社アイデン) that provides electronics manufacturing, inspection, and staffing services. The website’s language, business focus, and locations (Hyogo, Shimane, Tottori in Japan) do not match the AI startup’s profile, and there is no indication of an Indian presence.)
-[00:32:03] domain ok: Aiden -> aiden.ai (india: unknown)
-[00:32:04] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:32:20] contacts: Aiden (aiden.ai) -> []
-[00:32:23] domain ok: Matters AI -> matters.ai (india: no)
-[00:32:23] contacts: Matters AI skipped, no India presence
-[00:32:23] LLM 429 on openai/gpt-oss-120b, waiting 15s
-[00:32:43] domain ok: Payhawk -> payhawk.com (india: no)
-[00:32:43] contacts: Payhawk skipped, no India presence
-[00:32:43] outreach: outside send window
+[07:38:33] radar: 31 new funding-looking articles
+[07:38:33] radar: processing 30 of 86 now, rest in the next runs
+[07:38:33] radar [1/30] Lupa Robotics raises $1.67 million seed round to teach robots human dexterity - Tech In Af
+[07:38:34]    -> Lupa Robotics | seed $1.67 million | relevance 8/10 | new
+[07:38:34] radar [2/30] Lute Raises $20M to Build Touch-Based AI for Robots - The Recursive
+[07:38:35]    -> Lute | unknown $20M | relevance 8/10 | new
+[07:38:35] radar [3/30] AI Media Startup Every Raises $17.5M Series A at $110M Valuation - Wowtale
+[07:38:37]    -> Every | Series A $17.5M | relevance 7/10 | new
+[07:38:37] radar [4/30] Pai Defence Raises $5M in Pre-Seed Funding - FinSMEs
+[07:38:38]    -> Pai Defence | Pre-Seed $5M | relevance 5/10 | skipped
+[07:38:38] radar [5/30] Saudi «Mawj» Raises Series A Funding to Strengthen Its Presence in the AI Customer Service
+[07:38:39]    -> Mawj: already have it
+[07:38:39] radar [6/30] Dubai’s Sooner Raises $20M To Expand Homebuyer Financing Platform - Forbes Middle East
+[07:38:40]    -> Sooner |  $20M | relevance 5/10 | skipped
+[07:38:40] radar [7/30] Munich Fusion Startup Starforge Raises €6.6M Pre-Seed to Mass-Produce Reactors in Factorie
+[07:38:41]    -> Starforge | Pre-Seed €6.6M | relevance 4/10 | skipped
+[07:38:41] radar [8/30] Matters.AI raises ₹115 crore pre-series A funding led by Tanglin Venture Partners - ET Ent
+[07:38:43]    -> Matters.AI: already have it
+[07:38:43] radar [9/30] Funding Wrap: Dreamteam, Style Union, Cyient Semiconductors raise fresh capital - ET Entre
+[07:38:44]    -> not a single-company raise, skip
+[07:38:44] radar [10/30] Matters.AI Raises $12 Million Pre-Series A to Boost Data Security Platform & US Expansion 
+[07:38:45]    -> Matters.AI: already have it
+[07:38:45] radar [11/30] SatSure targets ₹200 cr in Series B to expand satellite and AI capabilities - Business Sta
+[07:38:46]    -> SatSure: already have it
+[07:38:46] radar [12/30] Aeravti Ventures launches ₹300 cr second fund, secures 50% at first close - Business Stand
+[07:38:46] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:39:02]    -> not a single-company raise, skip
+[07:39:02] radar [13/30] Jet engine startup Green Aero raises $14 million led by Crane Ventures to build combat dro
+[07:39:03]    -> Green Aero: already have it
+[07:39:03] radar [14/30] SatSure Raises $7 Million from Antariksh Venture Capital Fund to Expand Satellite Technolo
+[07:39:04]    -> SatSure: already have it
+[07:39:04] radar [15/30] Former Alibaba exec's AI powered startup Everful bags funding to connect retailers with Ch
+[07:39:04] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:39:21]    -> Everful | unknown unknown | relevance 6/10 | skipped
+[07:39:21] radar [16/30] {Funding Alert} Orthopaedic Healthcare Startup OSSO Raises Rs 2.5 Cr - Indian Retailer
+[07:39:22]    -> OSSO: already have it
+[07:39:22] radar [17/30] GIVA Raises ₹90 Crore from BlackSoil to Support Retail Expansion - Indian Startup Times
+[07:39:23]    -> GIVA: already have it
+[07:39:23] radar [18/30] AI Funding News November 20 2026: DeepSeek Leads $15.07B Across Six Rounds - AI Funding Tr
+[07:39:25]    -> DeepSeek | multiple $15.07B | relevance 9/10 | new
+[07:39:25] radar [19/30] Spacetech startup SatSure raises $7 million from sovereign space fund - The Economic Times
+[07:39:25] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:39:41]    -> SatSure: already have it
+[07:39:41] radar [20/30] Factory robots maker Botsync raises $11 million, plans US go-to-market and bigger India te
+[07:39:42]    -> Botsync | None $11 million | relevance 5/10 | skipped
+[07:39:42] radar [21/30] Lender to kirana owners and dairy farmers, InPrime Finserv raises Rs 101 crore from FMO, Z
+[07:39:43]    -> InPrime Finserv | Funding round Rs 101 crore | relevance 8/10 | new
+[07:39:43] radar [22/30] India’s AI rules take shape; Euler Motors eyes fresh funding - The Economic Times
+[07:39:44] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:39:59]    -> not a single-company raise, skip
+[07:39:59] radar [23/30] InPrime Finserv Raises Rs 101 Crore in Series B Funding - Siliconindia
+[07:40:01]    -> InPrime Finserv: already have it
+[07:40:01] radar [24/30] Prosus, Vertex Ventures co-lead $10 million funding in Vegapay as banks expand credit on U
+[07:40:02]    -> Vegapay: already have it
+[07:40:02] radar [25/30] Dhan parent Raise to invest Rs 100 crore in charting platform, eyes integrations with riva
+[07:40:04]    -> Charting platform (unnamed) | Strategic investment Rs 100 crore | relevance 7/10 | new
+[07:40:04] radar [26/30] Telangana Tech 9M 2026 Report: CtrlS, Skyroot Drive $726M Funding Surge as Seed Deals Decl
+[07:40:04] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:40:20]    -> not a single-company raise, skip
+[07:40:20] radar [27/30] PayU India posts $12 million adjusted Ebitda profit in H1 as credit business scales - The 
+[07:40:21]    -> not a single-company raise, skip
+[07:40:21] radar [28/30] August AI Raises $12 Mn From Accel And Peak XV - Bharat Fast
+[07:40:23]    -> August AI | Series A $12 Mn | relevance 8/10 | new
+[07:40:23] radar [29/30] Unsiloed AI Raises $7.5 Mn Led By Felicis To Make Documents Computable - Bharat Fast
+[07:40:23] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:40:39]    -> Unsiloed AI | Funding round $7.5 Mn | relevance 7/10 | new
+[07:40:39] radar [30/30] Dreamteam Raises $53 Mn For AI-Native CRM - Bharat Fast
+[07:40:40]    -> Dreamteam |  $53 Mn | relevance 8/10 | new
+[07:40:40] radar: 9 relevant companies added
+[07:40:42] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:40:58] domain ok: DeepSeek -> deepseek.com (india: no)
+[07:40:58] contacts: DeepSeek skipped, no India presence
+[07:40:59] domain ok: Lupa Robotics -> luparobotics.com (india: unknown)
+[07:41:01] contacts: Lupa Robotics (luparobotics.com) -> []
+[07:41:14] domain rejected: Lute -> lute.com (site unreachable)
+[07:41:15] domain ok: Lute -> lute.io (india: unknown)
+[07:41:18] contacts: Lute (lute.io) -> []
+[07:41:20] domain ok: InPrime Finserv -> inprime.in (india: yes)
+[07:41:21] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:41:38] contacts: InPrime Finserv (inprime.in) -> []
+[07:41:46] domain rejected: August AI -> augustai.com (site unreachable)
+[07:41:47] domain ok: August AI -> getaugust.ai (india: no)
+[07:41:47] contacts: August AI skipped, no India presence
+[07:41:49] domain rejected: Dreamteam -> dreamteam.com (The site is a domain‑sale listing for DreamTeam.com with no mention of an AI‑native CRM product, team, or company details, whereas the news article describes a SaaS startup. No Indian office, .in domain, INR pricing, or India‑focused information appears on the site.)
+[07:41:50] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:42:06] domain ok: Dreamteam -> dreamteam.ai (india: unknown)
+[07:42:10] contacts: Dreamteam (dreamteam.ai) -> []
+[07:42:11] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:42:28] domain rejected: Every -> every.com (The news describes Every as an AI media startup, while the website is for The EVERY Company (formerly Clara Foods) that produces animal‑free egg protein, a food‑tech/biotech business. The domains, branding, and sector differ, indicating they are different entities. The site contains no mention of India, Indian offices, .in domain, or India‑focused content.)
+[07:42:29] domain rejected: Every -> every.ai (The news article describes Every as an AI media startup, while the website every.ai markets an AI-powered CRM for businesses, a different product category. The branding and focus do not align, indicating they are separate entities. The site contains no references to India (no .in domain, no Indian office or pricing), so there is no evidence of an Indian presence.)
+[07:42:29] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:42:45] domain rejected: Every -> every.io (The news describes Every as an AI media startup, while the website every.io markets itself as an AI-native finance and HR platform for startups, focusing on banking, payroll, bookkeeping, etc. The product focus and branding differ, indicating they are separate entities. The site contains no indication of Indian operations, pricing, .in domain, or India‑focused customers.)
+[07:42:46] domain rejected: Every -> getevery.com (The website getevery.com lacks any title, description, or visible content to verify its identity. Without such information we cannot confirm it is the AI media startup 'Every' mentioned in the news, resulting in low confidence. No details about Indian offices, pricing, domain suffix, or India-focused customers are present, so the India presence is unknown.)
+[07:42:46] contacts: no domain for Every
+[07:42:47] domain rejected: Charting platform (unnamed) -> chartify.com (site unreachable)
+[07:42:47] contacts: no domain for Charting platform (unnamed)
+[07:42:49] LLM 429 on openai/gpt-oss-120b, waiting 15s
+[07:43:04] domain ok: Unsiloed AI -> unsiloed.ai (india: no)
+[07:43:04] contacts: Unsiloed AI skipped, no India presence
+[07:43:04] outreach: outside send window
